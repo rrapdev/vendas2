@@ -1,0 +1,25 @@
+{
+  "vendas2App": {
+    "plataformaPagamento": {
+      "home": {
+        "title": "Plataforma Pagamentos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Plataforma Pagamento",
+        "createOrEditLabel": "Create or edit a Plataforma Pagamento",
+        "notFound": "No Plataforma Pagamentos found"
+      },
+      "created": "A new Plataforma Pagamento is created with identifier {{ param }}",
+      "updated": "A Plataforma Pagamento is updated with identifier {{ param }}",
+      "deleted": "A Plataforma Pagamento is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Plataforma Pagamento {{ id }}?"
+      },
+      "detail": {
+        "title": "Plataforma Pagamento"
+      },
+      "id": "ID",
+      "nomePlataformaPagamento": "Nome Plataforma Pagamento",
+      "indicadorAtivo": "Indicador Ativo"
+    }
+  }
+}

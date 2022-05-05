@@ -1,0 +1,103 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200438",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "item_venda",
+  "fields": [
+    {
+      "fieldName": "dataHora",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "quantidade",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorUnitario",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorTotal",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorDescontoPercentual",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMax": "1",
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "valorDescontoReal",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorTotalComDesconto",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "indicadorItemPresente",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dataHoraCadastro",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorCadastro",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataHoraAtualizacao",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorAtualizacao",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ItemVenda",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nomeServico",
+      "otherEntityName": "servico",
+      "otherEntityRelationshipName": "itemVenda",
+      "relationshipName": "servico",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nomeApresentacao",
+      "otherEntityName": "colaborador",
+      "otherEntityRelationshipName": "itemVenda",
+      "relationshipName": "colaboradorQueIndicou",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nomeCompleto",
+      "otherEntityName": "cliente",
+      "otherEntityRelationshipName": "itemVenda",
+      "relationshipName": "clienteQueVaiRealizar",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "venda",
+      "otherEntityRelationshipName": "itenssVendass",
+      "relationshipName": "venda",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "venda",
+      "otherEntityRelationshipName": "itensVenda",
+      "ownerSide": false,
+      "relationshipName": "vendas",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

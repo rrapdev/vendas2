@@ -1,0 +1,25 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200442",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "plataforma_pagamento",
+  "fields": [
+    {
+      "fieldName": "nomePlataformaPagamento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "indicadorAtivo",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PlataformaPagamento",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

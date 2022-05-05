@@ -1,0 +1,55 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200443",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "carteira_cliente",
+  "fields": [
+    {
+      "fieldName": "saldoConsolidado",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tipoIndicadorSaldo",
+      "fieldType": "TipoIndicadorSaldo",
+      "fieldValues": "POSITIVO,NEGATIVO"
+    },
+    {
+      "fieldName": "indicadorBloqueio",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dataHoraCadastro",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorCadastro",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataHoraAtualizacao",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorAtualizacao",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CarteiraCliente",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "descricaoLancamento",
+      "otherEntityName": "lancamentoCarteiraCliente",
+      "otherEntityRelationshipName": "carteirasCliente",
+      "ownerSide": true,
+      "relationshipName": "lancamentoCarteiraCliente",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

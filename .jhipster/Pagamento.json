@@ -1,0 +1,93 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200441",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "pagamento",
+  "fields": [
+    {
+      "fieldName": "formaPagamento",
+      "fieldType": "FormaPagamento",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "DINHEIRO,PIX,TRANSFERENCIA,CREDITO,DEBITO,BOLETO,DEPOSITO,CHEQUE,PERMUTA,CARTEIRA_EVA,OUTRO"
+    },
+    {
+      "fieldName": "dataHora",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valor",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "observacoes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroParcelas",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "bandeiraCartao",
+      "fieldType": "BandeiraCartao",
+      "fieldValues": "MASTER,VISA,AMERICAN,ELO,OUTRO"
+    },
+    {
+      "fieldName": "clienteOrigemPagamento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "indicadorConferido",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dataHoraCadastro",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorCadastro",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataHoraAtualizacao",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorAtualizacao",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Pagamento",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nomePlataformaPagamento",
+      "otherEntityName": "plataformaPagamento",
+      "otherEntityRelationshipName": "pagamento",
+      "relationshipName": "plataformaPagamento",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "descricaoLancamento",
+      "otherEntityName": "lancamentoCarteiraCliente",
+      "otherEntityRelationshipName": "pagamento",
+      "relationshipName": "lancamentoCarteiraCliente",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "venda",
+      "otherEntityRelationshipName": "pagamentos",
+      "ownerSide": false,
+      "relationshipName": "vendas",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

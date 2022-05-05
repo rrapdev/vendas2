@@ -1,0 +1,31 @@
+{
+  "vendas2App": {
+    "carteiraCliente": {
+      "home": {
+        "title": "Carteira Clientes",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Carteira Cliente",
+        "createOrEditLabel": "Criar ou editar Carteira Cliente",
+        "notFound": "Nenhum Carteira Cliente encontrado"
+      },
+      "created": "Um novo Carteira Cliente foi criado com o identificador {{ param }}",
+      "updated": "Um Carteira Cliente foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Carteira Cliente foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Carteira Cliente {{ id }}?"
+      },
+      "detail": {
+        "title": "Carteira Cliente"
+      },
+      "id": "ID",
+      "saldoConsolidado": "Saldo Consolidado",
+      "tipoIndicadorSaldo": "Tipo Indicador Saldo",
+      "indicadorBloqueio": "Indicador Bloqueio",
+      "dataHoraCadastro": "Data Hora Cadastro",
+      "colaboradorCadastro": "Colaborador Cadastro",
+      "dataHoraAtualizacao": "Data Hora Atualizacao",
+      "colaboradorAtualizacao": "Colaborador Atualizacao",
+      "lancamentoCarteiraCliente": "Lancamento Carteira Cliente"
+    }
+  }
+}

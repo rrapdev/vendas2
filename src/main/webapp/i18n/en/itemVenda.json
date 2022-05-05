@@ -1,0 +1,40 @@
+{
+  "vendas2App": {
+    "itemVenda": {
+      "home": {
+        "title": "Item Vendas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Item Venda",
+        "createOrEditLabel": "Create or edit a Item Venda",
+        "notFound": "No Item Vendas found"
+      },
+      "created": "A new Item Venda is created with identifier {{ param }}",
+      "updated": "A Item Venda is updated with identifier {{ param }}",
+      "deleted": "A Item Venda is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Item Venda {{ id }}?"
+      },
+      "detail": {
+        "title": "Item Venda"
+      },
+      "id": "ID",
+      "dataHora": "Data Hora",
+      "quantidade": "Quantidade",
+      "valorUnitario": "Valor Unitario",
+      "valorTotal": "Valor Total",
+      "valorDescontoPercentual": "Valor Desconto Percentual",
+      "valorDescontoReal": "Valor Desconto Real",
+      "valorTotalComDesconto": "Valor Total Com Desconto",
+      "indicadorItemPresente": "Indicador Item Presente",
+      "dataHoraCadastro": "Data Hora Cadastro",
+      "colaboradorCadastro": "Colaborador Cadastro",
+      "dataHoraAtualizacao": "Data Hora Atualizacao",
+      "colaboradorAtualizacao": "Colaborador Atualizacao",
+      "servico": "Servico",
+      "colaboradorQueIndicou": "Colaborador Que Indicou",
+      "clienteQueVaiRealizar": "Cliente Que Vai Realizar",
+      "venda": "Venda",
+      "vendas": "Vendas"
+    }
+  }
+}

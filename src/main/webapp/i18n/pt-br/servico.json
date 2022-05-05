@@ -1,0 +1,26 @@
+{
+  "vendas2App": {
+    "servico": {
+      "home": {
+        "title": "Servicos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Servico",
+        "createOrEditLabel": "Criar ou editar Servico",
+        "notFound": "Nenhum Servico encontrado"
+      },
+      "created": "Um novo Servico foi criado com o identificador {{ param }}",
+      "updated": "Um Servico foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Servico foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Servico {{ id }}?"
+      },
+      "detail": {
+        "title": "Servico"
+      },
+      "id": "ID",
+      "nomeServico": "Nome Servico",
+      "valor": "Valor",
+      "indicadorAtivo": "Indicador Ativo"
+    }
+  }
+}

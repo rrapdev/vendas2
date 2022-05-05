@@ -1,0 +1,9 @@
+{
+  "vendas2App": {
+    "TipoIndicadorSaldo": {
+      "null": "",
+      "POSITIVO": "POSITIVO",
+      "NEGATIVO": "NEGATIVO"
+    }
+  }
+}

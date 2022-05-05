@@ -1,0 +1,38 @@
+{
+  "vendas2App": {
+    "pagamento": {
+      "home": {
+        "title": "Pagamentos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Pagamento",
+        "createOrEditLabel": "Criar ou editar Pagamento",
+        "notFound": "Nenhum Pagamento encontrado"
+      },
+      "created": "Um novo Pagamento foi criado com o identificador {{ param }}",
+      "updated": "Um Pagamento foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Pagamento foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Pagamento {{ id }}?"
+      },
+      "detail": {
+        "title": "Pagamento"
+      },
+      "id": "ID",
+      "formaPagamento": "Forma Pagamento",
+      "dataHora": "Data Hora",
+      "valor": "Valor",
+      "observacoes": "Observacoes",
+      "numeroParcelas": "Numero Parcelas",
+      "bandeiraCartao": "Bandeira Cartao",
+      "clienteOrigemPagamento": "Cliente Origem Pagamento",
+      "indicadorConferido": "Indicador Conferido",
+      "dataHoraCadastro": "Data Hora Cadastro",
+      "colaboradorCadastro": "Colaborador Cadastro",
+      "dataHoraAtualizacao": "Data Hora Atualizacao",
+      "colaboradorAtualizacao": "Colaborador Atualizacao",
+      "plataformaPagamento": "Plataforma Pagamento",
+      "lancamentoCarteiraCliente": "Lancamento Carteira Cliente",
+      "vendas": "Vendas"
+    }
+  }
+}

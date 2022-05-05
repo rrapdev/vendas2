@@ -1,0 +1,11 @@
+id;forma_pagamento;data_hora;valor;observacoes;numero_parcelas;bandeira_cartao;cliente_origem_pagamento;indicador_conferido;data_hora_cadastro;colaborador_cadastro;data_hora_atualizacao;colaborador_atualizacao
+1;DEBITO;2022-05-04T23:07:52;3633;synthesizing transition;94913;MASTER;Berkshire;true;2022-05-05T19:20:30;deposit Lustroso;2022-05-04T23:36:24;schemas
+2;CARTEIRA_EVA;2022-05-05T10:15:47;80615;driver cross-platform;95528;ELO;invoice;true;2022-05-05T02:33:39;Sapatos SMTP Pequeno;2022-05-05T15:37:54;digital
+3;PERMUTA;2022-05-04T23:43:35;92744;actuating;85907;AMERICAN;Pataca Metrics Suécia;false;2022-05-04T20:58:35;Rua Loan;2022-05-05T03:11:30;Robust
+4;TRANSFERENCIA;2022-05-05T17:09:36;63023;end-to-end;97122;AMERICAN;Regional Malásia;false;2022-05-05T09:36:39;Advanced portal;2022-05-05T19:49:48;Alameda Avon
+5;DINHEIRO;2022-05-05T03:17:15;49302;Incrível Luxemburgo;78070;ELO;interface;true;2022-05-05T00:26:53;reboot Sérvia Switchable;2022-05-05T04:05:50;software AI
+6;DEPOSITO;2022-05-05T08:13:45;22746;Bahia SCSI;38373;OUTRO;Bicicleta Account Research;false;2022-05-05T07:10:05;invoice Branding functionalities;2022-05-05T10:09:16;Piauí panel Pará
+7;BOLETO;2022-05-05T00:23:53;33865;Metrics;96414;MASTER;Engineer marca matrices;true;2022-05-05T07:10:31;sensor SMS;2022-05-05T19:13:14;National connecting
+8;PIX;2022-05-05T07:45:26;13859;Rua;62835;AMERICAN;Principal Concreto;true;2022-05-05T18:56:16;deploy Aço São;2022-05-05T03:52:48;rich
+9;TRANSFERENCIA;2022-05-05T11:20:59;55030;Principal throughput Avon;54676;OUTRO;Algodão Avenida Norfolk;true;2022-05-05T01:30:51;Legacy RSS;2022-05-05T13:12:44;monitor deliverables Regional
+10;CHEQUE;2022-05-05T08:25:47;69359;Accounts Jardim;15935;ELO;Kong;true;2022-05-04T21:53:12;Catarina Paradigm Salsicha;2022-05-05T19:36:00;deposit expedite

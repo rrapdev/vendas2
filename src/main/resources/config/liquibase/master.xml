@@ -15,7 +15,21 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200436_added_entity_Venda.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200437_added_entity_Servico.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200438_added_entity_ItemVenda.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200439_added_entity_Cliente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200440_added_entity_Colaborador.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200441_added_entity_Pagamento.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200442_added_entity_PlataformaPagamento.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200443_added_entity_CarteiraCliente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200444_added_entity_LancamentoCarteiraCliente.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20220505200436_added_entity_constraints_Venda.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200438_added_entity_constraints_ItemVenda.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200439_added_entity_constraints_Cliente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200441_added_entity_constraints_Pagamento.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220505200443_added_entity_constraints_CarteiraCliente.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

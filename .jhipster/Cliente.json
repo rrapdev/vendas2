@@ -1,0 +1,43 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200439",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "cliente",
+  "fields": [
+    {
+      "fieldName": "nomeCompleto",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telefone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nomeApresentacao",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "indicadorAtivo",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Cliente",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "saldoConsolidado",
+      "otherEntityName": "carteiraCliente",
+      "otherEntityRelationshipName": "cliente",
+      "ownerSide": true,
+      "relationshipName": "carteiraCliente",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

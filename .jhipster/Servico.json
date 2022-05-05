@@ -1,0 +1,29 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200437",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "servico",
+  "fields": [
+    {
+      "fieldName": "nomeServico",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valor",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "indicadorAtivo",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Servico",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceImpl"
+}

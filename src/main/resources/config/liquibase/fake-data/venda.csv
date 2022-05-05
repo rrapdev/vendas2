@@ -1,0 +1,11 @@
+id;data_hora;valor_total_bruto;valor_total_desconto;valor_total_liquido;valor_total_pago;valor_saldo_restante;observarcoes;indicador_possui_pagamento_pendente;indicador_possui_item_presente;indicador_bloqueio;data_hora_cadastro;colaborador_cadastro;data_hora_atualizacao;colaborador_atualizacao
+1;2022-05-05T12:39:15;30156;52386;15262;53404;51154;../fake-data/blob/hipster.txt;true;false;false;2022-05-05T04:45:13;Central Licenciado;2022-05-05T01:54:32;Regional IB
+2;2022-05-05T13:36:25;99451;83974;44587;91795;26879;../fake-data/blob/hipster.txt;true;false;false;2022-05-05T13:25:30;Consultant Congelado;2022-05-05T01:18:04;withdrawal Mato Fresco
+3;2022-05-04T23:23:03;70220;54819;78678;85363;74510;../fake-data/blob/hipster.txt;true;false;false;2022-05-05T00:01:46;panel primary;2022-05-05T03:48:23;Feito Goiás
+4;2022-05-05T15:31:54;94128;38938;26450;94664;42868;../fake-data/blob/hipster.txt;true;false;false;2022-05-04T20:38:43;Phased;2022-05-04T21:04:30;Synchronised B2C
+5;2022-05-05T05:27:05;43680;39409;88137;53805;44312;../fake-data/blob/hipster.txt;true;false;true;2022-05-04T20:51:16;hard verde-azulado;2022-05-05T15:14:31;Rústico
+6;2022-05-05T13:52:26;8376;32169;50191;15488;67814;../fake-data/blob/hipster.txt;true;true;true;2022-05-04T23:31:23;port cobre;2022-05-05T12:01:02;withdrawal override Salgadinhos
+7;2022-05-05T07:00:02;19567;57521;8754;45130;86093;../fake-data/blob/hipster.txt;false;true;false;2022-05-05T11:38:59;Analyst;2022-05-05T10:53:34;context-sensitive policy Travessa
+8;2022-05-04T23:16:27;69218;3065;37277;16134;78364;../fake-data/blob/hipster.txt;true;false;true;2022-05-04T23:52:43;do;2022-05-05T15:59:03;Computador RSS evolve
+9;2022-05-05T19:36:28;40313;7278;83084;34674;97632;../fake-data/blob/hipster.txt;false;false;false;2022-05-05T07:54:35;Bacon Rústico laranja;2022-05-05T14:49:34;Bola Coordinator Account
+10;2022-05-05T02:47:25;88649;13216;70611;66234;57979;../fake-data/blob/hipster.txt;false;true;false;2022-05-05T16:05:09;Strategist indexing;2022-05-04T22:20:23;embrace client-server
