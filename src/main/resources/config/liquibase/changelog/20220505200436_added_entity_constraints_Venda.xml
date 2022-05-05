@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Venda.
+    -->
+    <changeSet id="20220505200436-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="cliente_que_comprou_id"
+                                 baseTableName="venda"
+                                 constraintName="fk_venda__cliente_que_comprou_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cliente"/>
+
+        <addForeignKeyConstraint baseColumnNames="lancamento_carteira_cliente_id"
+                                 baseTableName="venda"
+                                 constraintName="fk_venda__lancamento_carteira_cliente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lancamento_carteira_cliente"/>
+
+        <addForeignKeyConstraint baseColumnNames="venda_id"
+                                 baseTableName="rel_venda__colaboradores_que_indicaram"
+                                 constraintName="fk_rel_venda__colaboradores_que_indicaram__venda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venda"/>
+
+        <addForeignKeyConstraint baseColumnNames="colaboradores_que_indicaram_id"
+                                 baseTableName="rel_venda__colaboradores_que_indicaram"
+                                 constraintName="fk_rel_venda__colaboradores_que__colaboradores_que_indica_b9_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="colaborador"/>
+
+        <addForeignKeyConstraint baseColumnNames="venda_id"
+                                 baseTableName="rel_venda__itens_venda"
+                                 constraintName="fk_rel_venda__itens_venda__venda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venda"/>
+
+        <addForeignKeyConstraint baseColumnNames="itens_venda_id"
+                                 baseTableName="rel_venda__itens_venda"
+                                 constraintName="fk_rel_venda__itens_venda__itens_venda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="item_venda"/>
+
+        <addForeignKeyConstraint baseColumnNames="venda_id"
+                                 baseTableName="rel_venda__pagamentos"
+                                 constraintName="fk_rel_venda__pagamentos__venda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venda"/>
+
+        <addForeignKeyConstraint baseColumnNames="pagamentos_id"
+                                 baseTableName="rel_venda__pagamentos"
+                                 constraintName="fk_rel_venda__pagamentos__pagamentos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pagamento"/>
+    </changeSet>
+</databaseChangeLog>

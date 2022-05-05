@@ -7,6 +7,15 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "venda": "Venda",
+        "servico": "Servico",
+        "itemVenda": "Item Venda",
+        "cliente": "Cliente",
+        "colaborador": "Colaborador",
+        "pagamento": "Pagamento",
+        "plataformaPagamento": "Plataforma Pagamento",
+        "carteiraCliente": "Carteira Cliente",
+        "lancamentoCarteiraCliente": "Lancamento Carteira Cliente",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

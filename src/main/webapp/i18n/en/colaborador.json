@@ -1,0 +1,27 @@
+{
+  "vendas2App": {
+    "colaborador": {
+      "home": {
+        "title": "Colaboradors",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Colaborador",
+        "createOrEditLabel": "Create or edit a Colaborador",
+        "notFound": "No Colaboradors found"
+      },
+      "created": "A new Colaborador is created with identifier {{ param }}",
+      "updated": "A Colaborador is updated with identifier {{ param }}",
+      "deleted": "A Colaborador is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Colaborador {{ id }}?"
+      },
+      "detail": {
+        "title": "Colaborador"
+      },
+      "id": "ID",
+      "nomeColaborador": "Nome Colaborador",
+      "nomeApresentacao": "Nome Apresentacao",
+      "indicadorAtivo": "Indicador Ativo",
+      "vendas": "Vendas"
+    }
+  }
+}

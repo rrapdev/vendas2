@@ -1,0 +1,11 @@
+id;data_hora;quantidade;valor_unitario;valor_total;valor_desconto_percentual;valor_desconto_real;valor_total_com_desconto;indicador_item_presente;data_hora_cadastro;colaborador_cadastro;data_hora_atualizacao;colaborador_atualizacao
+1;2022-05-05T17:39:18;27908;98912;74200;0;70805;13375;false;2022-05-05T04:59:08;Turismo;2022-05-05T08:49:33;Travessa Markets Alameda
+2;2022-05-05T06:32:57;75284;66102;65434;1;38534;42824;false;2022-05-05T04:28:28;PCI solutions;2022-05-05T19:22:15;firewall attitude-oriented SCSI
+3;2022-05-05T19:47:49;73350;17782;68100;1;71275;88291;false;2022-05-04T22:32:14;RAM;2022-05-05T19:00:27;reintermediate Buckinghamshire
+4;2022-05-04T23:47:20;72238;5977;79426;1;5686;86672;false;2022-05-05T15:50:53;Organic Ergonômico Swedish;2022-05-05T16:52:26;Dynamic Industrial bus
+5;2022-05-05T11:09:45;85336;67787;7986;0;69078;29059;false;2022-05-04T20:15:45;Crianças Strategist;2022-05-04T23:07:04;virtual cobre
+6;2022-05-05T11:03:19;5384;87671;65808;1;15160;11662;true;2022-05-04T22:09:28;Account Product;2022-05-05T01:33:51;real-time Som Beleza
+7;2022-05-05T07:25:05;10219;6108;24731;0;5553;76563;true;2022-05-05T18:38:48;cinza input Sergipe;2022-05-05T00:31:54;benchmark whiteboard Rua
+8;2022-05-05T06:35:59;45955;32525;51776;0;13597;77862;false;2022-05-05T16:53:35;eyeballs Virtual;2022-05-04T23:08:30;payment
+9;2022-05-05T08:42:45;74307;62558;35098;0;66945;86352;true;2022-05-05T15:18:12;repurpose Jordanian;2022-05-05T01:14:19;Checking Checking
+10;2022-05-05T09:31:22;16986;88261;61362;0;5734;97120;true;2022-05-05T01:53:53;synthesize withdrawal;2022-05-05T15:25:03;revolutionize

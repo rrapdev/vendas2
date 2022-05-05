@@ -1,0 +1,66 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200444",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "lancamento_carteira_cliente",
+  "fields": [
+    {
+      "fieldName": "dataHora",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "descricaoLancamento",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorCredito",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorDebito",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "observacoes",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "indicadorBloqueio",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dataHoraCadastro",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorCadastro",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataHoraAtualizacao",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorAtualizacao",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "LancamentoCarteiraCliente",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "carteiraCliente",
+      "otherEntityRelationshipName": "lancamentoCarteiraCliente",
+      "ownerSide": false,
+      "relationshipName": "carteirasCliente",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

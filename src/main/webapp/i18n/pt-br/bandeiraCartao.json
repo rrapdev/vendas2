@@ -1,0 +1,12 @@
+{
+  "vendas2App": {
+    "BandeiraCartao": {
+      "null": "",
+      "MASTER": "MASTER",
+      "VISA": "VISA",
+      "AMERICAN": "AMERICAN",
+      "ELO": "ELO",
+      "OUTRO": "OUTRO"
+    }
+  }
+}

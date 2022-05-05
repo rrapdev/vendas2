@@ -1,0 +1,25 @@
+{
+  "vendas2App": {
+    "plataformaPagamento": {
+      "home": {
+        "title": "Plataforma Pagamentos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Plataforma Pagamento",
+        "createOrEditLabel": "Criar ou editar Plataforma Pagamento",
+        "notFound": "Nenhum Plataforma Pagamento encontrado"
+      },
+      "created": "Um novo Plataforma Pagamento foi criado com o identificador {{ param }}",
+      "updated": "Um Plataforma Pagamento foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Plataforma Pagamento foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Plataforma Pagamento {{ id }}?"
+      },
+      "detail": {
+        "title": "Plataforma Pagamento"
+      },
+      "id": "ID",
+      "nomePlataformaPagamento": "Nome Plataforma Pagamento",
+      "indicadorAtivo": "Indicador Ativo"
+    }
+  }
+}

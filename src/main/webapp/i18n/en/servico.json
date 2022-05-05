@@ -1,0 +1,26 @@
+{
+  "vendas2App": {
+    "servico": {
+      "home": {
+        "title": "Servicos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Servico",
+        "createOrEditLabel": "Create or edit a Servico",
+        "notFound": "No Servicos found"
+      },
+      "created": "A new Servico is created with identifier {{ param }}",
+      "updated": "A Servico is updated with identifier {{ param }}",
+      "deleted": "A Servico is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Servico {{ id }}?"
+      },
+      "detail": {
+        "title": "Servico"
+      },
+      "id": "ID",
+      "nomeServico": "Nome Servico",
+      "valor": "Valor",
+      "indicadorAtivo": "Indicador Ativo"
+    }
+  }
+}

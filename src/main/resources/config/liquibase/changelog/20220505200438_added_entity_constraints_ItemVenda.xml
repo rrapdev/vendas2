@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity ItemVenda.
+    -->
+    <changeSet id="20220505200438-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="servico_id"
+                                 baseTableName="item_venda"
+                                 constraintName="fk_item_venda__servico_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="servico"/>
+
+        <addForeignKeyConstraint baseColumnNames="colaborador_que_indicou_id"
+                                 baseTableName="item_venda"
+                                 constraintName="fk_item_venda__colaborador_que_indicou_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="colaborador"/>
+
+        <addForeignKeyConstraint baseColumnNames="cliente_que_vai_realizar_id"
+                                 baseTableName="item_venda"
+                                 constraintName="fk_item_venda__cliente_que_vai_realizar_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cliente"/>
+
+        <addForeignKeyConstraint baseColumnNames="venda_id"
+                                 baseTableName="item_venda"
+                                 constraintName="fk_item_venda__venda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venda"/>
+    </changeSet>
+</databaseChangeLog>

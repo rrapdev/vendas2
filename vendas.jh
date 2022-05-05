@@ -120,6 +120,10 @@ relationship OneToOne {
 	Cliente{carteiraCliente(saldoConsolidado)} to CarteiraCliente
 }
 
+relationship OneToMany {
+	Venda{itenssVendass(quantidade)} to ItemVenda
+}
+
 relationship ManyToOne {
     Venda{clienteQueComprou(nomeCompleto)} to Cliente,
     Venda{lancamentoCarteiraCliente(descricaoLancamento)} to LancamentoCarteiraCliente
@@ -133,11 +137,11 @@ relationship ManyToOne {
 }
 
 relationship ManyToMany {
-	Venda{colaboradoresQueIndicaram(nomeApresentacao)} to Colaborador,
-    Venda{itensVenda(quantidade)} to ItemVenda,
-    Venda{pagamentos(valor)} to Pagamento,
+	Venda{colaboradoresQueIndicaram(nomeApresentacao)} to Colaborador{vendas},
+    Venda{itensVenda(quantidade)} to ItemVenda{vendas},
+    Venda{pagamentos(valor)} to Pagamento{vendas},
     
-    CarteiraCliente{lancamentoCarteiraCliente(descricaoLancamento)} to LancamentoCarteiraCliente
+    CarteiraCliente{lancamentoCarteiraCliente(descricaoLancamento)} to LancamentoCarteiraCliente{carteirasCliente}
 }
 
 paginate * with pagination

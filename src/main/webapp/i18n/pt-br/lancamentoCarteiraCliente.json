@@ -1,0 +1,34 @@
+{
+  "vendas2App": {
+    "lancamentoCarteiraCliente": {
+      "home": {
+        "title": "Lancamento Carteira Clientes",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Lancamento Carteira Cliente",
+        "createOrEditLabel": "Criar ou editar Lancamento Carteira Cliente",
+        "notFound": "Nenhum Lancamento Carteira Cliente encontrado"
+      },
+      "created": "Um novo Lancamento Carteira Cliente foi criado com o identificador {{ param }}",
+      "updated": "Um Lancamento Carteira Cliente foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Lancamento Carteira Cliente foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Lancamento Carteira Cliente {{ id }}?"
+      },
+      "detail": {
+        "title": "Lancamento Carteira Cliente"
+      },
+      "id": "ID",
+      "dataHora": "Data Hora",
+      "descricaoLancamento": "Descricao Lancamento",
+      "valorCredito": "Valor Credito",
+      "valorDebito": "Valor Debito",
+      "observacoes": "Observacoes",
+      "indicadorBloqueio": "Indicador Bloqueio",
+      "dataHoraCadastro": "Data Hora Cadastro",
+      "colaboradorCadastro": "Colaborador Cadastro",
+      "dataHoraAtualizacao": "Data Hora Atualizacao",
+      "colaboradorAtualizacao": "Colaborador Atualizacao",
+      "carteirasCliente": "Carteiras Cliente"
+    }
+  }
+}

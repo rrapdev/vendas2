@@ -1,0 +1,120 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200436",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "venda",
+  "fields": [
+    {
+      "fieldName": "dataHora",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valorTotalBruto",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorTotalDesconto",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorTotalLiquido",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorTotalPago",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "valorSaldoRestante",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "observarcoes",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "indicadorPossuiPagamentoPendente",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "indicadorPossuiItemPresente",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "indicadorBloqueio",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dataHoraCadastro",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorCadastro",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dataHoraAtualizacao",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "colaboradorAtualizacao",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Venda",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "quantidade",
+      "otherEntityName": "itemVenda",
+      "otherEntityRelationshipName": "venda",
+      "relationshipName": "itenssVendass",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "nomeCompleto",
+      "otherEntityName": "cliente",
+      "otherEntityRelationshipName": "venda",
+      "relationshipName": "clienteQueComprou",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "descricaoLancamento",
+      "otherEntityName": "lancamentoCarteiraCliente",
+      "otherEntityRelationshipName": "venda",
+      "relationshipName": "lancamentoCarteiraCliente",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "nomeApresentacao",
+      "otherEntityName": "colaborador",
+      "otherEntityRelationshipName": "vendas",
+      "ownerSide": true,
+      "relationshipName": "colaboradoresQueIndicaram",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "quantidade",
+      "otherEntityName": "itemVenda",
+      "otherEntityRelationshipName": "vendas",
+      "ownerSide": true,
+      "relationshipName": "itensVenda",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "valor",
+      "otherEntityName": "pagamento",
+      "otherEntityRelationshipName": "vendas",
+      "ownerSide": true,
+      "relationshipName": "pagamentos",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

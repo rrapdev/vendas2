@@ -1,0 +1,37 @@
+{
+  "applications": "*",
+  "changelogDate": "20220505200440",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "colaborador",
+  "fields": [
+    {
+      "fieldName": "nomeColaborador",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nomeApresentacao",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "indicadorAtivo",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Colaborador",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "venda",
+      "otherEntityRelationshipName": "colaboradoresQueIndicaram",
+      "ownerSide": false,
+      "relationshipName": "vendas",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

@@ -1,0 +1,43 @@
+{
+  "vendas2App": {
+    "venda": {
+      "home": {
+        "title": "Vendas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Venda",
+        "createOrEditLabel": "Create or edit a Venda",
+        "notFound": "No Vendas found"
+      },
+      "created": "A new Venda is created with identifier {{ param }}",
+      "updated": "A Venda is updated with identifier {{ param }}",
+      "deleted": "A Venda is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Venda {{ id }}?"
+      },
+      "detail": {
+        "title": "Venda"
+      },
+      "id": "ID",
+      "dataHora": "Data Hora",
+      "valorTotalBruto": "Valor Total Bruto",
+      "valorTotalDesconto": "Valor Total Desconto",
+      "valorTotalLiquido": "Valor Total Liquido",
+      "valorTotalPago": "Valor Total Pago",
+      "valorSaldoRestante": "Valor Saldo Restante",
+      "observarcoes": "Observarcoes",
+      "indicadorPossuiPagamentoPendente": "Indicador Possui Pagamento Pendente",
+      "indicadorPossuiItemPresente": "Indicador Possui Item Presente",
+      "indicadorBloqueio": "Indicador Bloqueio",
+      "dataHoraCadastro": "Data Hora Cadastro",
+      "colaboradorCadastro": "Colaborador Cadastro",
+      "dataHoraAtualizacao": "Data Hora Atualizacao",
+      "colaboradorAtualizacao": "Colaborador Atualizacao",
+      "itenssVendass": "Itenss Vendass",
+      "clienteQueComprou": "Cliente Que Comprou",
+      "lancamentoCarteiraCliente": "Lancamento Carteira Cliente",
+      "colaboradoresQueIndicaram": "Colaboradores Que Indicaram",
+      "itensVenda": "Itens Venda",
+      "pagamentos": "Pagamentos"
+    }
+  }
+}
