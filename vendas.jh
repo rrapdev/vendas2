@@ -1,0 +1,146 @@
+
+entity Venda {
+	dataHora Instant required,
+    
+    valorTotalBruto BigDecimal,
+   	valorTotalDesconto BigDecimal,
+    valorTotalLiquido BigDecimal,
+    valorTotalPago BigDecimal,
+    valorSaldoRestante BigDecimal,
+    
+    observarcoes TextBlob,
+    
+    indicadorPossuiPagamentoPendente Boolean,
+    indicadorPossuiItemPresente Boolean,
+    indicadorBloqueio Boolean,
+    
+    dataHoraCadastro Instant,
+    colaboradorCadastro String,
+    dataHoraAtualizacao Instant,
+    colaboradorAtualizacao String
+}
+
+entity Servico {
+	nomeServico String required,
+    valor BigDecimal,
+    indicadorAtivo Boolean
+}
+
+entity ItemVenda {
+	dataHora Instant,
+	quantidade Integer required,
+    valorUnitario BigDecimal,
+    valorTotal BigDecimal,
+    valorDescontoPercentual BigDecimal min(0) max(1),
+    valorDescontoReal BigDecimal,
+    valorTotalComDesconto BigDecimal,
+    
+    indicadorItemPresente Boolean,
+    
+    dataHoraCadastro Instant,
+    colaboradorCadastro String,
+    dataHoraAtualizacao Instant,
+    colaboradorAtualizacao String
+}
+
+entity Cliente {
+	nomeCompleto String required,
+    telefone String required,
+    nomeApresentacao String,
+    indicadorAtivo Boolean
+}
+
+entity Colaborador {
+	nomeColaborador String required,
+    nomeApresentacao String,
+    indicadorAtivo Boolean
+}
+
+entity Pagamento {
+	formaPagamento FormaPagamento required,
+	dataHora Instant required,
+    valor BigDecimal required,
+    observacoes String,
+    numeroParcelas Integer min(1),
+    bandeiraCartao BandeiraCartao,
+    clienteOrigemPagamento String,
+    indicadorConferido Boolean,
+    
+    dataHoraCadastro Instant,
+    colaboradorCadastro String,
+    dataHoraAtualizacao Instant,
+    colaboradorAtualizacao String
+}
+
+enum FormaPagamento {
+	DINHEIRO, PIX, TRANSFERENCIA, CREDITO, DEBITO, 
+    BOLETO, DEPOSITO, CHEQUE, PERMUTA, CARTEIRA_EVA, OUTRO
+}
+
+enum BandeiraCartao {
+	MASTER, VISA, AMERICAN, ELO, OUTRO
+}
+
+//MAQUINETA - STONE, MAQUINETA - BANCO DO NORDESTE, SITE - PAGSEGURO,
+//STONE - LINK PAGAMENTO, STONE - LINK PAGAMENTO, STONE - BOLETO,
+//SANTANDER EMPRESA
+entity PlataformaPagamento {
+	nomePlataformaPagamento String required,
+    indicadorAtivo Boolean
+}
+
+entity CarteiraCliente {
+    saldoConsolidado BigDecimal required,
+    tipoIndicadorSaldo TipoIndicadorSaldo,
+    indicadorBloqueio Boolean,
+    dataHoraCadastro Instant,
+    colaboradorCadastro String,
+    dataHoraAtualizacao Instant,
+    colaboradorAtualizacao String
+}
+
+enum TipoIndicadorSaldo {
+	POSITIVO, NEGATIVO
+}
+
+entity LancamentoCarteiraCliente {
+	dataHora Instant required,
+	descricaoLancamento String required,
+	valorCredito BigDecimal,
+    valorDebito BigDecimal,
+    observacoes String,
+    indicadorBloqueio Boolean,
+    dataHoraCadastro Instant,
+    colaboradorCadastro String,
+    dataHoraAtualizacao Instant,
+    colaboradorAtualizacao String
+}
+
+relationship OneToOne {
+	Cliente{carteiraCliente(saldoConsolidado)} to CarteiraCliente
+}
+
+relationship ManyToOne {
+    Venda{clienteQueComprou(nomeCompleto)} to Cliente,
+    Venda{lancamentoCarteiraCliente(descricaoLancamento)} to LancamentoCarteiraCliente
+    
+    ItemVenda{servico(nomeServico)} to Servico,
+    ItemVenda{colaboradorQueIndicou(nomeApresentacao)} to Colaborador,
+    ItemVenda{clienteQueVaiRealizar(nomeCompleto)} to Cliente,
+    
+    Pagamento{plataformaPagamento(nomePlataformaPagamento)} to PlataformaPagamento,
+    Pagamento{lancamentoCarteiraCliente(descricaoLancamento)} to LancamentoCarteiraCliente
+}
+
+relationship ManyToMany {
+	Venda{colaboradoresQueIndicaram(nomeApresentacao)} to Colaborador,
+    Venda{itensVenda(quantidade)} to ItemVenda,
+    Venda{pagamentos(valor)} to Pagamento,
+    
+    CarteiraCliente{lancamentoCarteiraCliente(descricaoLancamento)} to LancamentoCarteiraCliente
+}
+
+paginate * with pagination
+dto * with mapstruct
+service all with serviceImpl
+
