@@ -31,6 +31,12 @@ export const LancamentoCarteiraClienteDetail = (props: RouteComponentProps<{ id:
           </dt>
           <dd>{lancamentoCarteiraClienteEntity.id}</dd>
           <dt>
+            <span id="descricaoLancamento">
+              <Translate contentKey="vendas2App.lancamentoCarteiraCliente.descricaoLancamento">Descricao Lancamento</Translate>
+            </span>
+          </dt>
+          <dd>{lancamentoCarteiraClienteEntity.descricaoLancamento}</dd>
+          <dt>
             <span id="dataHora">
               <Translate contentKey="vendas2App.lancamentoCarteiraCliente.dataHora">Data Hora</Translate>
             </span>
@@ -40,12 +46,6 @@ export const LancamentoCarteiraClienteDetail = (props: RouteComponentProps<{ id:
               <TextFormat value={lancamentoCarteiraClienteEntity.dataHora} type="date" format={APP_DATE_FORMAT} />
             ) : null}
           </dd>
-          <dt>
-            <span id="descricaoLancamento">
-              <Translate contentKey="vendas2App.lancamentoCarteiraCliente.descricaoLancamento">Descricao Lancamento</Translate>
-            </span>
-          </dt>
-          <dd>{lancamentoCarteiraClienteEntity.descricaoLancamento}</dd>
           <dt>
             <span id="valorCredito">
               <Translate contentKey="vendas2App.lancamentoCarteiraCliente.valorCredito">Valor Credito</Translate>
@@ -102,6 +102,14 @@ export const LancamentoCarteiraClienteDetail = (props: RouteComponentProps<{ id:
             </span>
           </dt>
           <dd>{lancamentoCarteiraClienteEntity.colaboradorAtualizacao}</dd>
+          <dt>
+            <Translate contentKey="vendas2App.lancamentoCarteiraCliente.venda">Venda</Translate>
+          </dt>
+          <dd>{lancamentoCarteiraClienteEntity.venda ? lancamentoCarteiraClienteEntity.venda.id : ''}</dd>
+          <dt>
+            <Translate contentKey="vendas2App.lancamentoCarteiraCliente.pagamento">Pagamento</Translate>
+          </dt>
+          <dd>{lancamentoCarteiraClienteEntity.pagamento ? lancamentoCarteiraClienteEntity.pagamento.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/lancamento-carteira-cliente" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

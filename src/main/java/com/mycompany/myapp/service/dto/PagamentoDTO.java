@@ -43,9 +43,7 @@ public class PagamentoDTO implements Serializable {
 
     private String colaboradorAtualizacao;
 
-    private PlataformaPagamentoDTO plataformaPagamento;
-
-    private LancamentoCarteiraClienteDTO lancamentoCarteiraCliente;
+    private PlataformaPagamentoDTO adquirentePagamento;
 
     public Long getId() {
         return id;
@@ -151,20 +149,12 @@ public class PagamentoDTO implements Serializable {
         this.colaboradorAtualizacao = colaboradorAtualizacao;
     }
 
-    public PlataformaPagamentoDTO getPlataformaPagamento() {
-        return plataformaPagamento;
+    public PlataformaPagamentoDTO getAdquirentePagamento() {
+        return adquirentePagamento;
     }
 
-    public void setPlataformaPagamento(PlataformaPagamentoDTO plataformaPagamento) {
-        this.plataformaPagamento = plataformaPagamento;
-    }
-
-    public LancamentoCarteiraClienteDTO getLancamentoCarteiraCliente() {
-        return lancamentoCarteiraCliente;
-    }
-
-    public void setLancamentoCarteiraCliente(LancamentoCarteiraClienteDTO lancamentoCarteiraCliente) {
-        this.lancamentoCarteiraCliente = lancamentoCarteiraCliente;
+    public void setAdquirentePagamento(PlataformaPagamentoDTO adquirentePagamento) {
+        this.adquirentePagamento = adquirentePagamento;
     }
 
     @Override
@@ -205,8 +195,7 @@ public class PagamentoDTO implements Serializable {
             ", colaboradorCadastro='" + getColaboradorCadastro() + "'" +
             ", dataHoraAtualizacao='" + getDataHoraAtualizacao() + "'" +
             ", colaboradorAtualizacao='" + getColaboradorAtualizacao() + "'" +
-            ", plataformaPagamento=" + getPlataformaPagamento() +
-            ", lancamentoCarteiraCliente=" + getLancamentoCarteiraCliente() +
+            ", adquirentePagamento=" + getAdquirentePagamento() +
             "}";
     }
 }

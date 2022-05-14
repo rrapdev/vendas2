@@ -13,6 +13,6 @@ public enum FormaPagamento {
     DEPOSITO,
     CHEQUE,
     PERMUTA,
-    CARTEIRA_EVA,
+    CARTEIRA_EMPRESA,
     OUTRO,
 }

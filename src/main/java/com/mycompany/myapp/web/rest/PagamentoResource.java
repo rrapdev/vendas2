@@ -1,7 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.repository.PagamentoRepository;
+import com.mycompany.myapp.service.PagamentoQueryService;
 import com.mycompany.myapp.service.PagamentoService;
+import com.mycompany.myapp.service.criteria.PagamentoCriteria;
 import com.mycompany.myapp.service.dto.PagamentoDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,9 +44,16 @@ public class PagamentoResource {
 
     private final PagamentoRepository pagamentoRepository;
 
-    public PagamentoResource(PagamentoService pagamentoService, PagamentoRepository pagamentoRepository) {
+    private final PagamentoQueryService pagamentoQueryService;
+
+    public PagamentoResource(
+        PagamentoService pagamentoService,
+        PagamentoRepository pagamentoRepository,
+        PagamentoQueryService pagamentoQueryService
+    ) {
         this.pagamentoService = pagamentoService;
         this.pagamentoRepository = pagamentoRepository;
+        this.pagamentoQueryService = pagamentoQueryService;
     }
 
     /**
@@ -142,23 +150,30 @@ public class PagamentoResource {
      * {@code GET  /pagamentos} : get all the pagamentos.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of pagamentos in body.
      */
     @GetMapping("/pagamentos")
     public ResponseEntity<List<PagamentoDTO>> getAllPagamentos(
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        @RequestParam(required = false, defaultValue = "true") boolean eagerload
+        PagamentoCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get a page of Pagamentos");
-        Page<PagamentoDTO> page;
-        if (eagerload) {
-            page = pagamentoService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = pagamentoService.findAll(pageable);
-        }
+        log.debug("REST request to get Pagamentos by criteria: {}", criteria);
+        Page<PagamentoDTO> page = pagamentoQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /pagamentos/count} : count all the pagamentos.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/pagamentos/count")
+    public ResponseEntity<Long> countPagamentos(PagamentoCriteria criteria) {
+        log.debug("REST request to count Pagamentos by criteria: {}", criteria);
+        return ResponseEntity.ok().body(pagamentoQueryService.countByCriteria(criteria));
     }
 
     /**

@@ -30,8 +30,7 @@
       "colaboradorCadastro": "Colaborador Cadastro",
       "dataHoraAtualizacao": "Data Hora Atualizacao",
       "colaboradorAtualizacao": "Colaborador Atualizacao",
-      "plataformaPagamento": "Plataforma Pagamento",
-      "lancamentoCarteiraCliente": "Lancamento Carteira Cliente",
+      "adquirentePagamento": "Adquirente Pagamento",
       "vendas": "Vendas"
     }
   }

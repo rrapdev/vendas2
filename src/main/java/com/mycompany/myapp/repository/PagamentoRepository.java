@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the Pagamento entity.
  */
 @Repository
-public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
+public interface PagamentoRepository extends JpaRepository<Pagamento, Long>, JpaSpecificationExecutor<Pagamento> {
     default Optional<Pagamento> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }
@@ -27,18 +27,14 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     }
 
     @Query(
-        value = "select distinct pagamento from Pagamento pagamento left join fetch pagamento.plataformaPagamento left join fetch pagamento.lancamentoCarteiraCliente",
+        value = "select distinct pagamento from Pagamento pagamento left join fetch pagamento.adquirentePagamento",
         countQuery = "select count(distinct pagamento) from Pagamento pagamento"
     )
     Page<Pagamento> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query(
-        "select distinct pagamento from Pagamento pagamento left join fetch pagamento.plataformaPagamento left join fetch pagamento.lancamentoCarteiraCliente"
-    )
+    @Query("select distinct pagamento from Pagamento pagamento left join fetch pagamento.adquirentePagamento")
     List<Pagamento> findAllWithToOneRelationships();
 
-    @Query(
-        "select pagamento from Pagamento pagamento left join fetch pagamento.plataformaPagamento left join fetch pagamento.lancamentoCarteiraCliente where pagamento.id =:id"
-    )
+    @Query("select pagamento from Pagamento pagamento left join fetch pagamento.adquirentePagamento where pagamento.id =:id")
     Optional<Pagamento> findOneWithToOneRelationships(@Param("id") Long id);
 }

@@ -59,7 +59,7 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "ItemVenda",
   "pagination": "pagination",
   "readOnly": false,
@@ -83,12 +83,6 @@
       "otherEntityName": "cliente",
       "otherEntityRelationshipName": "itemVenda",
       "relationshipName": "clienteQueVaiRealizar",
-      "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityName": "venda",
-      "otherEntityRelationshipName": "itenssVendass",
-      "relationshipName": "venda",
       "relationshipType": "many-to-one"
     },
     {

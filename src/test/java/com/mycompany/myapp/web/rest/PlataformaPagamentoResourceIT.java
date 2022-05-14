@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.PlataformaPagamento;
 import com.mycompany.myapp.repository.PlataformaPagamentoRepository;
+import com.mycompany.myapp.service.criteria.PlataformaPagamentoCriteria;
 import com.mycompany.myapp.service.dto.PlataformaPagamentoDTO;
 import com.mycompany.myapp.service.mapper.PlataformaPagamentoMapper;
 import java.util.List;
@@ -185,6 +186,195 @@ class PlataformaPagamentoResourceIT {
             .andExpect(jsonPath("$.id").value(plataformaPagamento.getId().intValue()))
             .andExpect(jsonPath("$.nomePlataformaPagamento").value(DEFAULT_NOME_PLATAFORMA_PAGAMENTO))
             .andExpect(jsonPath("$.indicadorAtivo").value(DEFAULT_INDICADOR_ATIVO.booleanValue()));
+    }
+
+    @Test
+    @Transactional
+    void getPlataformaPagamentosByIdFiltering() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        Long id = plataformaPagamento.getId();
+
+        defaultPlataformaPagamentoShouldBeFound("id.equals=" + id);
+        defaultPlataformaPagamentoShouldNotBeFound("id.notEquals=" + id);
+
+        defaultPlataformaPagamentoShouldBeFound("id.greaterThanOrEqual=" + id);
+        defaultPlataformaPagamentoShouldNotBeFound("id.greaterThan=" + id);
+
+        defaultPlataformaPagamentoShouldBeFound("id.lessThanOrEqual=" + id);
+        defaultPlataformaPagamentoShouldNotBeFound("id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByNomePlataformaPagamentoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento equals to DEFAULT_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldBeFound("nomePlataformaPagamento.equals=" + DEFAULT_NOME_PLATAFORMA_PAGAMENTO);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento equals to UPDATED_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldNotBeFound("nomePlataformaPagamento.equals=" + UPDATED_NOME_PLATAFORMA_PAGAMENTO);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByNomePlataformaPagamentoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento not equals to DEFAULT_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldNotBeFound("nomePlataformaPagamento.notEquals=" + DEFAULT_NOME_PLATAFORMA_PAGAMENTO);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento not equals to UPDATED_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldBeFound("nomePlataformaPagamento.notEquals=" + UPDATED_NOME_PLATAFORMA_PAGAMENTO);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByNomePlataformaPagamentoIsInShouldWork() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento in DEFAULT_NOME_PLATAFORMA_PAGAMENTO or UPDATED_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldBeFound(
+            "nomePlataformaPagamento.in=" + DEFAULT_NOME_PLATAFORMA_PAGAMENTO + "," + UPDATED_NOME_PLATAFORMA_PAGAMENTO
+        );
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento equals to UPDATED_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldNotBeFound("nomePlataformaPagamento.in=" + UPDATED_NOME_PLATAFORMA_PAGAMENTO);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByNomePlataformaPagamentoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento is not null
+        defaultPlataformaPagamentoShouldBeFound("nomePlataformaPagamento.specified=true");
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento is null
+        defaultPlataformaPagamentoShouldNotBeFound("nomePlataformaPagamento.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByNomePlataformaPagamentoContainsSomething() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento contains DEFAULT_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldBeFound("nomePlataformaPagamento.contains=" + DEFAULT_NOME_PLATAFORMA_PAGAMENTO);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento contains UPDATED_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldNotBeFound("nomePlataformaPagamento.contains=" + UPDATED_NOME_PLATAFORMA_PAGAMENTO);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByNomePlataformaPagamentoNotContainsSomething() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento does not contain DEFAULT_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldNotBeFound("nomePlataformaPagamento.doesNotContain=" + DEFAULT_NOME_PLATAFORMA_PAGAMENTO);
+
+        // Get all the plataformaPagamentoList where nomePlataformaPagamento does not contain UPDATED_NOME_PLATAFORMA_PAGAMENTO
+        defaultPlataformaPagamentoShouldBeFound("nomePlataformaPagamento.doesNotContain=" + UPDATED_NOME_PLATAFORMA_PAGAMENTO);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByIndicadorAtivoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where indicadorAtivo equals to DEFAULT_INDICADOR_ATIVO
+        defaultPlataformaPagamentoShouldBeFound("indicadorAtivo.equals=" + DEFAULT_INDICADOR_ATIVO);
+
+        // Get all the plataformaPagamentoList where indicadorAtivo equals to UPDATED_INDICADOR_ATIVO
+        defaultPlataformaPagamentoShouldNotBeFound("indicadorAtivo.equals=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByIndicadorAtivoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where indicadorAtivo not equals to DEFAULT_INDICADOR_ATIVO
+        defaultPlataformaPagamentoShouldNotBeFound("indicadorAtivo.notEquals=" + DEFAULT_INDICADOR_ATIVO);
+
+        // Get all the plataformaPagamentoList where indicadorAtivo not equals to UPDATED_INDICADOR_ATIVO
+        defaultPlataformaPagamentoShouldBeFound("indicadorAtivo.notEquals=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByIndicadorAtivoIsInShouldWork() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where indicadorAtivo in DEFAULT_INDICADOR_ATIVO or UPDATED_INDICADOR_ATIVO
+        defaultPlataformaPagamentoShouldBeFound("indicadorAtivo.in=" + DEFAULT_INDICADOR_ATIVO + "," + UPDATED_INDICADOR_ATIVO);
+
+        // Get all the plataformaPagamentoList where indicadorAtivo equals to UPDATED_INDICADOR_ATIVO
+        defaultPlataformaPagamentoShouldNotBeFound("indicadorAtivo.in=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllPlataformaPagamentosByIndicadorAtivoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        plataformaPagamentoRepository.saveAndFlush(plataformaPagamento);
+
+        // Get all the plataformaPagamentoList where indicadorAtivo is not null
+        defaultPlataformaPagamentoShouldBeFound("indicadorAtivo.specified=true");
+
+        // Get all the plataformaPagamentoList where indicadorAtivo is null
+        defaultPlataformaPagamentoShouldNotBeFound("indicadorAtivo.specified=false");
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultPlataformaPagamentoShouldBeFound(String filter) throws Exception {
+        restPlataformaPagamentoMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(plataformaPagamento.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nomePlataformaPagamento").value(hasItem(DEFAULT_NOME_PLATAFORMA_PAGAMENTO)))
+            .andExpect(jsonPath("$.[*].indicadorAtivo").value(hasItem(DEFAULT_INDICADOR_ATIVO.booleanValue())));
+
+        // Check, that the count call also returns 1
+        restPlataformaPagamentoMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultPlataformaPagamentoShouldNotBeFound(String filter) throws Exception {
+        restPlataformaPagamentoMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restPlataformaPagamentoMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("0"));
     }
 
     @Test

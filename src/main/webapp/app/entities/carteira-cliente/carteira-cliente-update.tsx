@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { ILancamentoCarteiraCliente } from 'app/shared/model/lancamento-carteira-cliente.model';
 import { getEntities as getLancamentoCarteiraClientes } from 'app/entities/lancamento-carteira-cliente/lancamento-carteira-cliente.reducer';
 import { ICarteiraCliente } from 'app/shared/model/carteira-cliente.model';
-import { TipoIndicadorSaldo } from 'app/shared/model/enumerations/tipo-indicador-saldo.model';
+import { TipoSaldo } from 'app/shared/model/enumerations/tipo-saldo.model';
 import { getEntity, updateEntity, createEntity, reset } from './carteira-cliente.reducer';
 
 export const CarteiraClienteUpdate = (props: RouteComponentProps<{ id: string }>) => {
@@ -24,7 +24,7 @@ export const CarteiraClienteUpdate = (props: RouteComponentProps<{ id: string }>
   const loading = useAppSelector(state => state.carteiraCliente.loading);
   const updating = useAppSelector(state => state.carteiraCliente.updating);
   const updateSuccess = useAppSelector(state => state.carteiraCliente.updateSuccess);
-  const tipoIndicadorSaldoValues = Object.keys(TipoIndicadorSaldo);
+  const tipoSaldoValues = Object.keys(TipoSaldo);
   const handleClose = () => {
     props.history.push('/carteira-cliente' + props.location.search);
   };
@@ -102,15 +102,21 @@ export const CarteiraClienteUpdate = (props: RouteComponentProps<{ id: string }>
                 />
               ) : null}
               <ValidatedField
+                label={translate('vendas2App.carteiraCliente.nomeCarteiraCliente')}
+                id="carteira-cliente-nomeCarteiraCliente"
+                name="nomeCarteiraCliente"
+                data-cy="nomeCarteiraCliente"
+                type="text"
+                validate={{
+                  required: { value: true, message: translate('entity.validation.required') },
+                }}
+              />
+              <ValidatedField
                 label={translate('vendas2App.carteiraCliente.saldoConsolidado')}
                 id="carteira-cliente-saldoConsolidado"
                 name="saldoConsolidado"
                 data-cy="saldoConsolidado"
                 type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                  validate: v => isNumber(v) || translate('entity.validation.number'),
-                }}
               />
               <ValidatedField
                 label={translate('vendas2App.carteiraCliente.tipoIndicadorSaldo')}
@@ -119,9 +125,9 @@ export const CarteiraClienteUpdate = (props: RouteComponentProps<{ id: string }>
                 data-cy="tipoIndicadorSaldo"
                 type="select"
               >
-                {tipoIndicadorSaldoValues.map(tipoIndicadorSaldo => (
-                  <option value={tipoIndicadorSaldo} key={tipoIndicadorSaldo}>
-                    {translate('vendas2App.TipoIndicadorSaldo.' + tipoIndicadorSaldo)}
+                {tipoSaldoValues.map(tipoSaldo => (
+                  <option value={tipoSaldo} key={tipoSaldo}>
+                    {translate('vendas2App.TipoSaldo.' + tipoSaldo)}
                   </option>
                 ))}
               </ValidatedField>

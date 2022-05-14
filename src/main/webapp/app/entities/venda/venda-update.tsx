@@ -8,14 +8,12 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IItemVenda } from 'app/shared/model/item-venda.model';
-import { getEntities as getItemVendas } from 'app/entities/item-venda/item-venda.reducer';
 import { ICliente } from 'app/shared/model/cliente.model';
 import { getEntities as getClientes } from 'app/entities/cliente/cliente.reducer';
-import { ILancamentoCarteiraCliente } from 'app/shared/model/lancamento-carteira-cliente.model';
-import { getEntities as getLancamentoCarteiraClientes } from 'app/entities/lancamento-carteira-cliente/lancamento-carteira-cliente.reducer';
 import { IColaborador } from 'app/shared/model/colaborador.model';
 import { getEntities as getColaboradors } from 'app/entities/colaborador/colaborador.reducer';
+import { IItemVenda } from 'app/shared/model/item-venda.model';
+import { getEntities as getItemVendas } from 'app/entities/item-venda/item-venda.reducer';
 import { IPagamento } from 'app/shared/model/pagamento.model';
 import { getEntities as getPagamentos } from 'app/entities/pagamento/pagamento.reducer';
 import { IVenda } from 'app/shared/model/venda.model';
@@ -26,10 +24,9 @@ export const VendaUpdate = (props: RouteComponentProps<{ id: string }>) => {
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
-  const itemVendas = useAppSelector(state => state.itemVenda.entities);
   const clientes = useAppSelector(state => state.cliente.entities);
-  const lancamentoCarteiraClientes = useAppSelector(state => state.lancamentoCarteiraCliente.entities);
   const colaboradors = useAppSelector(state => state.colaborador.entities);
+  const itemVendas = useAppSelector(state => state.itemVenda.entities);
   const pagamentos = useAppSelector(state => state.pagamento.entities);
   const vendaEntity = useAppSelector(state => state.venda.entity);
   const loading = useAppSelector(state => state.venda.loading);
@@ -46,10 +43,9 @@ export const VendaUpdate = (props: RouteComponentProps<{ id: string }>) => {
       dispatch(getEntity(props.match.params.id));
     }
 
-    dispatch(getItemVendas({}));
     dispatch(getClientes({}));
-    dispatch(getLancamentoCarteiraClientes({}));
     dispatch(getColaboradors({}));
+    dispatch(getItemVendas({}));
     dispatch(getPagamentos({}));
   }, []);
 
@@ -67,11 +63,10 @@ export const VendaUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...vendaEntity,
       ...values,
-      itensVendas: mapIdList(values.itensVendas),
       colaboradoresQueIndicarams: mapIdList(values.colaboradoresQueIndicarams),
+      itensVendas: mapIdList(values.itensVendas),
       pagamentos: mapIdList(values.pagamentos),
       clienteQueComprou: clientes.find(it => it.id.toString() === values.clienteQueComprou.toString()),
-      lancamentoCarteiraCliente: lancamentoCarteiraClientes.find(it => it.id.toString() === values.lancamentoCarteiraCliente.toString()),
     };
 
     if (isNew) {
@@ -94,7 +89,6 @@ export const VendaUpdate = (props: RouteComponentProps<{ id: string }>) => {
           dataHoraCadastro: convertDateTimeFromServer(vendaEntity.dataHoraCadastro),
           dataHoraAtualizacao: convertDateTimeFromServer(vendaEntity.dataHoraAtualizacao),
           clienteQueComprou: vendaEntity?.clienteQueComprou?.id,
-          lancamentoCarteiraCliente: vendaEntity?.lancamentoCarteiraCliente?.id,
           colaboradoresQueIndicarams: vendaEntity?.colaboradoresQueIndicarams?.map(e => e.id.toString()),
           itensVendas: vendaEntity?.itensVendas?.map(e => e.id.toString()),
           pagamentos: vendaEntity?.pagamentos?.map(e => e.id.toString()),
@@ -244,22 +238,6 @@ export const VendaUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   ? clientes.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.nomeCompleto}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="venda-lancamentoCarteiraCliente"
-                name="lancamentoCarteiraCliente"
-                data-cy="lancamentoCarteiraCliente"
-                label={translate('vendas2App.venda.lancamentoCarteiraCliente')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {lancamentoCarteiraClientes
-                  ? lancamentoCarteiraClientes.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.descricaoLancamento}
                       </option>
                     ))
                   : null}

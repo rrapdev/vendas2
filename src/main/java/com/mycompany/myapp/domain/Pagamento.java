@@ -69,19 +69,10 @@ public class Pagamento implements Serializable {
     private String colaboradorAtualizacao;
 
     @ManyToOne
-    private PlataformaPagamento plataformaPagamento;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "carteirasClientes" }, allowSetters = true)
-    private LancamentoCarteiraCliente lancamentoCarteiraCliente;
+    private PlataformaPagamento adquirentePagamento;
 
     @ManyToMany(mappedBy = "pagamentos")
-    @JsonIgnoreProperties(
-        value = {
-            "itenssVendasses", "clienteQueComprou", "lancamentoCarteiraCliente", "colaboradoresQueIndicarams", "itensVendas", "pagamentos",
-        },
-        allowSetters = true
-    )
+    @JsonIgnoreProperties(value = { "clienteQueComprou", "colaboradoresQueIndicarams", "itensVendas", "pagamentos" }, allowSetters = true)
     private Set<Venda> vendas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -255,29 +246,16 @@ public class Pagamento implements Serializable {
         this.colaboradorAtualizacao = colaboradorAtualizacao;
     }
 
-    public PlataformaPagamento getPlataformaPagamento() {
-        return this.plataformaPagamento;
+    public PlataformaPagamento getAdquirentePagamento() {
+        return this.adquirentePagamento;
     }
 
-    public void setPlataformaPagamento(PlataformaPagamento plataformaPagamento) {
-        this.plataformaPagamento = plataformaPagamento;
+    public void setAdquirentePagamento(PlataformaPagamento plataformaPagamento) {
+        this.adquirentePagamento = plataformaPagamento;
     }
 
-    public Pagamento plataformaPagamento(PlataformaPagamento plataformaPagamento) {
-        this.setPlataformaPagamento(plataformaPagamento);
-        return this;
-    }
-
-    public LancamentoCarteiraCliente getLancamentoCarteiraCliente() {
-        return this.lancamentoCarteiraCliente;
-    }
-
-    public void setLancamentoCarteiraCliente(LancamentoCarteiraCliente lancamentoCarteiraCliente) {
-        this.lancamentoCarteiraCliente = lancamentoCarteiraCliente;
-    }
-
-    public Pagamento lancamentoCarteiraCliente(LancamentoCarteiraCliente lancamentoCarteiraCliente) {
-        this.setLancamentoCarteiraCliente(lancamentoCarteiraCliente);
+    public Pagamento adquirentePagamento(PlataformaPagamento plataformaPagamento) {
+        this.setAdquirentePagamento(plataformaPagamento);
         return this;
     }
 

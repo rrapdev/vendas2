@@ -8,16 +8,10 @@
     -->
     <changeSet id="20220505200441-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="plataforma_pagamento_id"
+        <addForeignKeyConstraint baseColumnNames="adquirente_pagamento_id"
                                  baseTableName="pagamento"
-                                 constraintName="fk_pagamento__plataforma_pagamento_id"
+                                 constraintName="fk_pagamento__adquirente_pagamento_id"
                                  referencedColumnNames="id"
                                  referencedTableName="plataforma_pagamento"/>
-
-        <addForeignKeyConstraint baseColumnNames="lancamento_carteira_cliente_id"
-                                 baseTableName="pagamento"
-                                 constraintName="fk_pagamento__lancamento_carteira_cliente_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="lancamento_carteira_cliente"/>
     </changeSet>
 </databaseChangeLog>

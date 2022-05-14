@@ -46,8 +46,6 @@ public class ItemVendaDTO implements Serializable {
 
     private ClienteDTO clienteQueVaiRealizar;
 
-    private VendaDTO venda;
-
     public Long getId() {
         return id;
     }
@@ -176,14 +174,6 @@ public class ItemVendaDTO implements Serializable {
         this.clienteQueVaiRealizar = clienteQueVaiRealizar;
     }
 
-    public VendaDTO getVenda() {
-        return venda;
-    }
-
-    public void setVenda(VendaDTO venda) {
-        this.venda = venda;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -225,7 +215,6 @@ public class ItemVendaDTO implements Serializable {
             ", servico=" + getServico() +
             ", colaboradorQueIndicou=" + getColaboradorQueIndicou() +
             ", clienteQueVaiRealizar=" + getClienteQueVaiRealizar() +
-            ", venda=" + getVenda() +
             "}";
     }
 }

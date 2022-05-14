@@ -3,7 +3,7 @@ import { ICarteiraCliente } from 'app/shared/model/carteira-cliente.model';
 export interface ICliente {
   id?: number;
   nomeCompleto?: string;
-  telefone?: string;
+  telefone?: string | null;
   nomeApresentacao?: string | null;
   indicadorAtivo?: boolean | null;
   carteiraCliente?: ICarteiraCliente | null;

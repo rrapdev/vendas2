@@ -6,14 +6,13 @@
   "entityTableName": "lancamento_carteira_cliente",
   "fields": [
     {
-      "fieldName": "dataHora",
-      "fieldType": "Instant",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "descricaoLancamento",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dataHora",
+      "fieldType": "Instant"
     },
     {
       "fieldName": "valorCredito",
@@ -49,11 +48,25 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "LancamentoCarteiraCliente",
   "pagination": "pagination",
   "readOnly": false,
   "relationships": [
+    {
+      "otherEntityName": "venda",
+      "otherEntityRelationshipName": "lancamentoCarteiraCliente",
+      "ownerSide": true,
+      "relationshipName": "venda",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "pagamento",
+      "otherEntityRelationshipName": "lancamentoCarteiraCliente",
+      "ownerSide": true,
+      "relationshipName": "pagamento",
+      "relationshipType": "one-to-one"
+    },
     {
       "otherEntityName": "carteiraCliente",
       "otherEntityRelationshipName": "lancamentoCarteiraCliente",

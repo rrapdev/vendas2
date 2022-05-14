@@ -106,9 +106,6 @@ export const ClienteUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 name="telefone"
                 data-cy="telefone"
                 type="text"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
               />
               <ValidatedField
                 label={translate('vendas2App.cliente.nomeApresentacao')}
@@ -136,7 +133,7 @@ export const ClienteUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 {carteiraClientes
                   ? carteiraClientes.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.saldoConsolidado}
+                        {otherEntity.nomeCarteiraCliente}
                       </option>
                     ))
                   : null}

@@ -1,11 +1,11 @@
-id;data_hora;descricao_lancamento;valor_credito;valor_debito;observacoes;indicador_bloqueio;data_hora_cadastro;colaborador_cadastro;data_hora_atualizacao;colaborador_atualizacao
-1;2022-05-05T10:09:51;à;38419;67251;back-end Gourde attitude-oriented;true;2022-05-05T03:12:09;Casa up Architect;2022-05-05T14:21:22;homogeneous Checking Facilitator
-2;2022-05-05T17:29:20;Concreto e-services Unit;58060;62766;programming;false;2022-05-04T20:50:25;Luvas supply-chains;2022-05-05T05:21:29;interactive Filmes Lustroso
-3;2022-05-05T07:12:11;Impressionante Principal;12706;53047;Card;false;2022-05-05T05:47:59;Designer transmitter Travessa;2022-05-05T02:52:51;haptic Malásia
-4;2022-05-05T04:10:30;preto;63902;73283;Account coral;false;2022-05-05T09:16:32;Amazonas maximize Mercearia;2022-05-04T23:24:56;bottom-line benchmark Corporate
-5;2022-05-04T20:56:09;portals Bedfordshire;5194;32035;deposit Research SMTP;true;2022-05-05T05:41:52;virtual;2022-05-04T22:09:53;Madeira
-6;2022-05-05T19:25:38;hierarchy;46267;95840;US Calças;false;2022-05-04T23:50:47;FTP Marginal application;2022-05-05T09:24:02;Solutions Granito
-7;2022-05-05T01:51:39;Refinado;66448;89339;Macio Rodovia Industrial;true;2022-05-05T18:01:47;Home compressing;2022-05-05T04:51:07;payment Borracha
-8;2022-05-05T06:51:45;Agent SAS;18912;87991;UAE Brand;false;2022-05-05T17:04:48;Travessa deposit SMTP;2022-05-05T14:59:39;açafrão communities
-9;2022-05-05T12:35:08;Gostoso Macio;1899;4251;Marginal seize;false;2022-05-05T13:01:12;Pre-emptive;2022-05-05T15:42:45;niches
-10;2022-05-05T19:10:34;bypassing Algodão;30048;32175;Rufiyaa Travessa paradigms;true;2022-05-05T04:16:45;coral;2022-05-04T20:26:43;mesh açafrão
+id;descricao_lancamento;data_hora;valor_credito;valor_debito;observacoes;indicador_bloqueio;data_hora_cadastro;colaborador_cadastro;data_hora_atualizacao;colaborador_atualizacao
+1;azul Berkshire;2022-05-04T21:50:07;80169;14947;Gourde;false;2022-05-05T17:35:49;synthesize;2022-05-05T20:00:44;Assistant
+2;Architect Streamlined Rodovia;2022-05-05T18:23:57;32724;99432;array Concreto e-services;true;2022-05-04T22:20:01;Pernambuco;2022-05-05T00:30:20;compress vertical SQL
+3;Bedfordshire Product;2022-05-05T01:58:07;1484;8700;Lustroso Ilha Pará;false;2022-05-04T22:37:17;RAM Phased harness;2022-05-04T23:51:21;Zimbábue auxiliary paradigms
+4;haptic Malásia;2022-05-05T04:10:30;12460;19727;THX Loan overriding;false;2022-05-05T10:16:45;Planner functionalities;2022-05-04T22:18:41;Travessa
+5;bottom-line benchmark Corporate;2022-05-04T20:56:09;46038;44319;interactive back;true;2022-05-05T04:49:16;Congelado;2022-05-05T06:20:34;Tobago Checking best-of-breed
+6;Madeira;2022-05-05T19:25:38;22948;30163;web-enabled models;false;2022-05-05T15:50:27;Bahia IB;2022-05-05T08:47:24;override calculate
+7;Solutions Granito;2022-05-05T01:51:39;15847;10573;Technician bandwidth fúchsia;false;2022-05-05T19:21:20;programming Montenegro Sharable;2022-05-04T21:39:03;systems leading-edge
+8;Micronésia AGP;2022-05-05T00:55:18;7285;18912;payment Sem primary;true;2022-05-05T08:45:23;payment Tala;2022-05-05T13:26:24;deposit
+9;communities leverage;2022-05-04T20:30:51;19461;12067;Supervisor brand Intuitive;false;2022-05-05T18:32:57;contextually-based;2022-05-04T20:43:23;groupware
+10;Computador;2022-05-05T18:30:36;4164;43382;e-tailers Quality Mesa;true;2022-05-05T09:43:41;applications;2022-05-05T14:47:39;cutting-edge

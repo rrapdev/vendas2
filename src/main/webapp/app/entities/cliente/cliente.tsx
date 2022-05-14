@@ -136,7 +136,7 @@ export const Cliente = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{cliente.indicadorAtivo ? 'true' : 'false'}</td>
                   <td>
                     {cliente.carteiraCliente ? (
-                      <Link to={`/carteira-cliente/${cliente.carteiraCliente.id}`}>{cliente.carteiraCliente.saldoConsolidado}</Link>
+                      <Link to={`/carteira-cliente/${cliente.carteiraCliente.id}`}>{cliente.carteiraCliente.nomeCarteiraCliente}</Link>
                     ) : (
                       ''
                     )}

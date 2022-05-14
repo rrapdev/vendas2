@@ -1,7 +1,7 @@
 package com.mycompany.myapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mycompany.myapp.domain.enumeration.TipoIndicadorSaldo;
+import com.mycompany.myapp.domain.enumeration.TipoSaldo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -26,12 +26,15 @@ public class CarteiraCliente implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "saldo_consolidado", precision = 21, scale = 2, nullable = false)
+    @Column(name = "nome_carteira_cliente", nullable = false)
+    private String nomeCarteiraCliente;
+
+    @Column(name = "saldo_consolidado", precision = 21, scale = 2)
     private BigDecimal saldoConsolidado;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_indicador_saldo")
-    private TipoIndicadorSaldo tipoIndicadorSaldo;
+    private TipoSaldo tipoIndicadorSaldo;
 
     @Column(name = "indicador_bloqueio")
     private Boolean indicadorBloqueio;
@@ -54,7 +57,7 @@ public class CarteiraCliente implements Serializable {
         joinColumns = @JoinColumn(name = "carteira_cliente_id"),
         inverseJoinColumns = @JoinColumn(name = "lancamento_carteira_cliente_id")
     )
-    @JsonIgnoreProperties(value = { "carteirasClientes" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "venda", "pagamento", "carteirasClientes" }, allowSetters = true)
     private Set<LancamentoCarteiraCliente> lancamentoCarteiraClientes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -72,6 +75,19 @@ public class CarteiraCliente implements Serializable {
         this.id = id;
     }
 
+    public String getNomeCarteiraCliente() {
+        return this.nomeCarteiraCliente;
+    }
+
+    public CarteiraCliente nomeCarteiraCliente(String nomeCarteiraCliente) {
+        this.setNomeCarteiraCliente(nomeCarteiraCliente);
+        return this;
+    }
+
+    public void setNomeCarteiraCliente(String nomeCarteiraCliente) {
+        this.nomeCarteiraCliente = nomeCarteiraCliente;
+    }
+
     public BigDecimal getSaldoConsolidado() {
         return this.saldoConsolidado;
     }
@@ -85,16 +101,16 @@ public class CarteiraCliente implements Serializable {
         this.saldoConsolidado = saldoConsolidado;
     }
 
-    public TipoIndicadorSaldo getTipoIndicadorSaldo() {
+    public TipoSaldo getTipoIndicadorSaldo() {
         return this.tipoIndicadorSaldo;
     }
 
-    public CarteiraCliente tipoIndicadorSaldo(TipoIndicadorSaldo tipoIndicadorSaldo) {
+    public CarteiraCliente tipoIndicadorSaldo(TipoSaldo tipoIndicadorSaldo) {
         this.setTipoIndicadorSaldo(tipoIndicadorSaldo);
         return this;
     }
 
-    public void setTipoIndicadorSaldo(TipoIndicadorSaldo tipoIndicadorSaldo) {
+    public void setTipoIndicadorSaldo(TipoSaldo tipoIndicadorSaldo) {
         this.tipoIndicadorSaldo = tipoIndicadorSaldo;
     }
 
@@ -212,6 +228,7 @@ public class CarteiraCliente implements Serializable {
     public String toString() {
         return "CarteiraCliente{" +
             "id=" + getId() +
+            ", nomeCarteiraCliente='" + getNomeCarteiraCliente() + "'" +
             ", saldoConsolidado=" + getSaldoConsolidado() +
             ", tipoIndicadorSaldo='" + getTipoIndicadorSaldo() + "'" +
             ", indicadorBloqueio='" + getIndicadorBloqueio() + "'" +

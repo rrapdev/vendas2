@@ -50,10 +50,7 @@
             <column name="colaborador_atualizacao" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="plataforma_pagamento_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="lancamento_carteira_cliente_id" type="bigint">
+            <column name="adquirente_pagamento_id" type="bigint">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->

@@ -104,6 +104,10 @@ export const CarteiraCliente = (props: RouteComponentProps<{ url: string }>) => 
                 <th className="hand" onClick={sort('id')}>
                   <Translate contentKey="vendas2App.carteiraCliente.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={sort('nomeCarteiraCliente')}>
+                  <Translate contentKey="vendas2App.carteiraCliente.nomeCarteiraCliente">Nome Carteira Cliente</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('saldoConsolidado')}>
                   <Translate contentKey="vendas2App.carteiraCliente.saldoConsolidado">Saldo Consolidado</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
@@ -143,9 +147,10 @@ export const CarteiraCliente = (props: RouteComponentProps<{ url: string }>) => 
                       {carteiraCliente.id}
                     </Button>
                   </td>
+                  <td>{carteiraCliente.nomeCarteiraCliente}</td>
                   <td>{carteiraCliente.saldoConsolidado}</td>
                   <td>
-                    <Translate contentKey={`vendas2App.TipoIndicadorSaldo.${carteiraCliente.tipoIndicadorSaldo}`} />
+                    <Translate contentKey={`vendas2App.TipoSaldo.${carteiraCliente.tipoIndicadorSaldo}`} />
                   </td>
                   <td>{carteiraCliente.indicadorBloqueio ? 'true' : 'false'}</td>
                   <td>

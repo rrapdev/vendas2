@@ -66,7 +66,6 @@ export const ItemVendaUpdate = (props: RouteComponentProps<{ id: string }>) => {
       servico: servicos.find(it => it.id.toString() === values.servico.toString()),
       colaboradorQueIndicou: colaboradors.find(it => it.id.toString() === values.colaboradorQueIndicou.toString()),
       clienteQueVaiRealizar: clientes.find(it => it.id.toString() === values.clienteQueVaiRealizar.toString()),
-      venda: vendas.find(it => it.id.toString() === values.venda.toString()),
     };
 
     if (isNew) {
@@ -91,7 +90,6 @@ export const ItemVendaUpdate = (props: RouteComponentProps<{ id: string }>) => {
           servico: itemVendaEntity?.servico?.id,
           colaboradorQueIndicou: itemVendaEntity?.colaboradorQueIndicou?.id,
           clienteQueVaiRealizar: itemVendaEntity?.clienteQueVaiRealizar?.id,
-          venda: itemVendaEntity?.venda?.id,
         };
 
   return (
@@ -260,22 +258,6 @@ export const ItemVendaUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   ? clientes.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.nomeCompleto}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="item-venda-venda"
-                name="venda"
-                data-cy="venda"
-                label={translate('vendas2App.itemVenda.venda')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {vendas
-                  ? vendas.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
                       </option>
                     ))
                   : null}

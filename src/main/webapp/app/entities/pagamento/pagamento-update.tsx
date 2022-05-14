@@ -10,8 +10,6 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IPlataformaPagamento } from 'app/shared/model/plataforma-pagamento.model';
 import { getEntities as getPlataformaPagamentos } from 'app/entities/plataforma-pagamento/plataforma-pagamento.reducer';
-import { ILancamentoCarteiraCliente } from 'app/shared/model/lancamento-carteira-cliente.model';
-import { getEntities as getLancamentoCarteiraClientes } from 'app/entities/lancamento-carteira-cliente/lancamento-carteira-cliente.reducer';
 import { IVenda } from 'app/shared/model/venda.model';
 import { getEntities as getVendas } from 'app/entities/venda/venda.reducer';
 import { IPagamento } from 'app/shared/model/pagamento.model';
@@ -25,7 +23,6 @@ export const PagamentoUpdate = (props: RouteComponentProps<{ id: string }>) => {
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
   const plataformaPagamentos = useAppSelector(state => state.plataformaPagamento.entities);
-  const lancamentoCarteiraClientes = useAppSelector(state => state.lancamentoCarteiraCliente.entities);
   const vendas = useAppSelector(state => state.venda.entities);
   const pagamentoEntity = useAppSelector(state => state.pagamento.entity);
   const loading = useAppSelector(state => state.pagamento.loading);
@@ -45,7 +42,6 @@ export const PagamentoUpdate = (props: RouteComponentProps<{ id: string }>) => {
     }
 
     dispatch(getPlataformaPagamentos({}));
-    dispatch(getLancamentoCarteiraClientes({}));
     dispatch(getVendas({}));
   }, []);
 
@@ -63,8 +59,7 @@ export const PagamentoUpdate = (props: RouteComponentProps<{ id: string }>) => {
     const entity = {
       ...pagamentoEntity,
       ...values,
-      plataformaPagamento: plataformaPagamentos.find(it => it.id.toString() === values.plataformaPagamento.toString()),
-      lancamentoCarteiraCliente: lancamentoCarteiraClientes.find(it => it.id.toString() === values.lancamentoCarteiraCliente.toString()),
+      adquirentePagamento: plataformaPagamentos.find(it => it.id.toString() === values.adquirentePagamento.toString()),
     };
 
     if (isNew) {
@@ -83,13 +78,12 @@ export const PagamentoUpdate = (props: RouteComponentProps<{ id: string }>) => {
         }
       : {
           formaPagamento: 'DINHEIRO',
-          bandeiraCartao: 'MASTER',
+          bandeiraCartao: 'MASTERCARD',
           ...pagamentoEntity,
           dataHora: convertDateTimeFromServer(pagamentoEntity.dataHora),
           dataHoraCadastro: convertDateTimeFromServer(pagamentoEntity.dataHoraCadastro),
           dataHoraAtualizacao: convertDateTimeFromServer(pagamentoEntity.dataHoraAtualizacao),
-          plataformaPagamento: pagamentoEntity?.plataformaPagamento?.id,
-          lancamentoCarteiraCliente: pagamentoEntity?.lancamentoCarteiraCliente?.id,
+          adquirentePagamento: pagamentoEntity?.adquirentePagamento?.id,
         };
 
   return (
@@ -229,10 +223,10 @@ export const PagamentoUpdate = (props: RouteComponentProps<{ id: string }>) => {
                 type="text"
               />
               <ValidatedField
-                id="pagamento-plataformaPagamento"
-                name="plataformaPagamento"
-                data-cy="plataformaPagamento"
-                label={translate('vendas2App.pagamento.plataformaPagamento')}
+                id="pagamento-adquirentePagamento"
+                name="adquirentePagamento"
+                data-cy="adquirentePagamento"
+                label={translate('vendas2App.pagamento.adquirentePagamento')}
                 type="select"
               >
                 <option value="" key="0" />
@@ -240,22 +234,6 @@ export const PagamentoUpdate = (props: RouteComponentProps<{ id: string }>) => {
                   ? plataformaPagamentos.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.nomePlataformaPagamento}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="pagamento-lancamentoCarteiraCliente"
-                name="lancamentoCarteiraCliente"
-                data-cy="lancamentoCarteiraCliente"
-                label={translate('vendas2App.pagamento.lancamentoCarteiraCliente')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {lancamentoCarteiraClientes
-                  ? lancamentoCarteiraClientes.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.descricaoLancamento}
                       </option>
                     ))
                   : null}

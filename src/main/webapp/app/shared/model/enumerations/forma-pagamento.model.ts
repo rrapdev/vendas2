@@ -17,7 +17,7 @@ export enum FormaPagamento {
 
   PERMUTA = 'PERMUTA',
 
-  CARTEIRA_EVA = 'CARTEIRA_EVA',
+  CARTEIRA_EMPRESA = 'CARTEIRA_EMPRESA',
 
   OUTRO = 'OUTRO',
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the Venda entity.
  */
 @Repository
-public interface VendaRepository extends VendaRepositoryWithBagRelationships, JpaRepository<Venda, Long> {
+public interface VendaRepository extends VendaRepositoryWithBagRelationships, JpaRepository<Venda, Long>, JpaSpecificationExecutor<Venda> {
     default Optional<Venda> findOneWithEagerRelationships(Long id) {
         return this.fetchBagRelationships(this.findOneWithToOneRelationships(id));
     }
@@ -27,16 +27,14 @@ public interface VendaRepository extends VendaRepositoryWithBagRelationships, Jp
     }
 
     @Query(
-        value = "select distinct venda from Venda venda left join fetch venda.clienteQueComprou left join fetch venda.lancamentoCarteiraCliente",
+        value = "select distinct venda from Venda venda left join fetch venda.clienteQueComprou",
         countQuery = "select count(distinct venda) from Venda venda"
     )
     Page<Venda> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select distinct venda from Venda venda left join fetch venda.clienteQueComprou left join fetch venda.lancamentoCarteiraCliente")
+    @Query("select distinct venda from Venda venda left join fetch venda.clienteQueComprou")
     List<Venda> findAllWithToOneRelationships();
 
-    @Query(
-        "select venda from Venda venda left join fetch venda.clienteQueComprou left join fetch venda.lancamentoCarteiraCliente where venda.id =:id"
-    )
+    @Query("select venda from Venda venda left join fetch venda.clienteQueComprou where venda.id =:id")
     Optional<Venda> findOneWithToOneRelationships(@Param("id") Long id);
 }

@@ -7,7 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.mycompany.myapp.IntegrationTest;
 import com.mycompany.myapp.domain.Colaborador;
+import com.mycompany.myapp.domain.Venda;
 import com.mycompany.myapp.repository.ColaboradorRepository;
+import com.mycompany.myapp.service.criteria.ColaboradorCriteria;
 import com.mycompany.myapp.service.dto.ColaboradorDTO;
 import com.mycompany.myapp.service.mapper.ColaboradorMapper;
 import java.util.List;
@@ -187,6 +189,298 @@ class ColaboradorResourceIT {
             .andExpect(jsonPath("$.nomeColaborador").value(DEFAULT_NOME_COLABORADOR))
             .andExpect(jsonPath("$.nomeApresentacao").value(DEFAULT_NOME_APRESENTACAO))
             .andExpect(jsonPath("$.indicadorAtivo").value(DEFAULT_INDICADOR_ATIVO.booleanValue()));
+    }
+
+    @Test
+    @Transactional
+    void getColaboradorsByIdFiltering() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        Long id = colaborador.getId();
+
+        defaultColaboradorShouldBeFound("id.equals=" + id);
+        defaultColaboradorShouldNotBeFound("id.notEquals=" + id);
+
+        defaultColaboradorShouldBeFound("id.greaterThanOrEqual=" + id);
+        defaultColaboradorShouldNotBeFound("id.greaterThan=" + id);
+
+        defaultColaboradorShouldBeFound("id.lessThanOrEqual=" + id);
+        defaultColaboradorShouldNotBeFound("id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeColaboradorIsEqualToSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeColaborador equals to DEFAULT_NOME_COLABORADOR
+        defaultColaboradorShouldBeFound("nomeColaborador.equals=" + DEFAULT_NOME_COLABORADOR);
+
+        // Get all the colaboradorList where nomeColaborador equals to UPDATED_NOME_COLABORADOR
+        defaultColaboradorShouldNotBeFound("nomeColaborador.equals=" + UPDATED_NOME_COLABORADOR);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeColaboradorIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeColaborador not equals to DEFAULT_NOME_COLABORADOR
+        defaultColaboradorShouldNotBeFound("nomeColaborador.notEquals=" + DEFAULT_NOME_COLABORADOR);
+
+        // Get all the colaboradorList where nomeColaborador not equals to UPDATED_NOME_COLABORADOR
+        defaultColaboradorShouldBeFound("nomeColaborador.notEquals=" + UPDATED_NOME_COLABORADOR);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeColaboradorIsInShouldWork() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeColaborador in DEFAULT_NOME_COLABORADOR or UPDATED_NOME_COLABORADOR
+        defaultColaboradorShouldBeFound("nomeColaborador.in=" + DEFAULT_NOME_COLABORADOR + "," + UPDATED_NOME_COLABORADOR);
+
+        // Get all the colaboradorList where nomeColaborador equals to UPDATED_NOME_COLABORADOR
+        defaultColaboradorShouldNotBeFound("nomeColaborador.in=" + UPDATED_NOME_COLABORADOR);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeColaboradorIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeColaborador is not null
+        defaultColaboradorShouldBeFound("nomeColaborador.specified=true");
+
+        // Get all the colaboradorList where nomeColaborador is null
+        defaultColaboradorShouldNotBeFound("nomeColaborador.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeColaboradorContainsSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeColaborador contains DEFAULT_NOME_COLABORADOR
+        defaultColaboradorShouldBeFound("nomeColaborador.contains=" + DEFAULT_NOME_COLABORADOR);
+
+        // Get all the colaboradorList where nomeColaborador contains UPDATED_NOME_COLABORADOR
+        defaultColaboradorShouldNotBeFound("nomeColaborador.contains=" + UPDATED_NOME_COLABORADOR);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeColaboradorNotContainsSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeColaborador does not contain DEFAULT_NOME_COLABORADOR
+        defaultColaboradorShouldNotBeFound("nomeColaborador.doesNotContain=" + DEFAULT_NOME_COLABORADOR);
+
+        // Get all the colaboradorList where nomeColaborador does not contain UPDATED_NOME_COLABORADOR
+        defaultColaboradorShouldBeFound("nomeColaborador.doesNotContain=" + UPDATED_NOME_COLABORADOR);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeApresentacaoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeApresentacao equals to DEFAULT_NOME_APRESENTACAO
+        defaultColaboradorShouldBeFound("nomeApresentacao.equals=" + DEFAULT_NOME_APRESENTACAO);
+
+        // Get all the colaboradorList where nomeApresentacao equals to UPDATED_NOME_APRESENTACAO
+        defaultColaboradorShouldNotBeFound("nomeApresentacao.equals=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeApresentacaoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeApresentacao not equals to DEFAULT_NOME_APRESENTACAO
+        defaultColaboradorShouldNotBeFound("nomeApresentacao.notEquals=" + DEFAULT_NOME_APRESENTACAO);
+
+        // Get all the colaboradorList where nomeApresentacao not equals to UPDATED_NOME_APRESENTACAO
+        defaultColaboradorShouldBeFound("nomeApresentacao.notEquals=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeApresentacaoIsInShouldWork() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeApresentacao in DEFAULT_NOME_APRESENTACAO or UPDATED_NOME_APRESENTACAO
+        defaultColaboradorShouldBeFound("nomeApresentacao.in=" + DEFAULT_NOME_APRESENTACAO + "," + UPDATED_NOME_APRESENTACAO);
+
+        // Get all the colaboradorList where nomeApresentacao equals to UPDATED_NOME_APRESENTACAO
+        defaultColaboradorShouldNotBeFound("nomeApresentacao.in=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeApresentacaoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeApresentacao is not null
+        defaultColaboradorShouldBeFound("nomeApresentacao.specified=true");
+
+        // Get all the colaboradorList where nomeApresentacao is null
+        defaultColaboradorShouldNotBeFound("nomeApresentacao.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeApresentacaoContainsSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeApresentacao contains DEFAULT_NOME_APRESENTACAO
+        defaultColaboradorShouldBeFound("nomeApresentacao.contains=" + DEFAULT_NOME_APRESENTACAO);
+
+        // Get all the colaboradorList where nomeApresentacao contains UPDATED_NOME_APRESENTACAO
+        defaultColaboradorShouldNotBeFound("nomeApresentacao.contains=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByNomeApresentacaoNotContainsSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where nomeApresentacao does not contain DEFAULT_NOME_APRESENTACAO
+        defaultColaboradorShouldNotBeFound("nomeApresentacao.doesNotContain=" + DEFAULT_NOME_APRESENTACAO);
+
+        // Get all the colaboradorList where nomeApresentacao does not contain UPDATED_NOME_APRESENTACAO
+        defaultColaboradorShouldBeFound("nomeApresentacao.doesNotContain=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByIndicadorAtivoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where indicadorAtivo equals to DEFAULT_INDICADOR_ATIVO
+        defaultColaboradorShouldBeFound("indicadorAtivo.equals=" + DEFAULT_INDICADOR_ATIVO);
+
+        // Get all the colaboradorList where indicadorAtivo equals to UPDATED_INDICADOR_ATIVO
+        defaultColaboradorShouldNotBeFound("indicadorAtivo.equals=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByIndicadorAtivoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where indicadorAtivo not equals to DEFAULT_INDICADOR_ATIVO
+        defaultColaboradorShouldNotBeFound("indicadorAtivo.notEquals=" + DEFAULT_INDICADOR_ATIVO);
+
+        // Get all the colaboradorList where indicadorAtivo not equals to UPDATED_INDICADOR_ATIVO
+        defaultColaboradorShouldBeFound("indicadorAtivo.notEquals=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByIndicadorAtivoIsInShouldWork() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where indicadorAtivo in DEFAULT_INDICADOR_ATIVO or UPDATED_INDICADOR_ATIVO
+        defaultColaboradorShouldBeFound("indicadorAtivo.in=" + DEFAULT_INDICADOR_ATIVO + "," + UPDATED_INDICADOR_ATIVO);
+
+        // Get all the colaboradorList where indicadorAtivo equals to UPDATED_INDICADOR_ATIVO
+        defaultColaboradorShouldNotBeFound("indicadorAtivo.in=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByIndicadorAtivoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+
+        // Get all the colaboradorList where indicadorAtivo is not null
+        defaultColaboradorShouldBeFound("indicadorAtivo.specified=true");
+
+        // Get all the colaboradorList where indicadorAtivo is null
+        defaultColaboradorShouldNotBeFound("indicadorAtivo.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllColaboradorsByVendasIsEqualToSomething() throws Exception {
+        // Initialize the database
+        colaboradorRepository.saveAndFlush(colaborador);
+        Venda vendas;
+        if (TestUtil.findAll(em, Venda.class).isEmpty()) {
+            vendas = VendaResourceIT.createEntity(em);
+            em.persist(vendas);
+            em.flush();
+        } else {
+            vendas = TestUtil.findAll(em, Venda.class).get(0);
+        }
+        em.persist(vendas);
+        em.flush();
+        colaborador.addVendas(vendas);
+        colaboradorRepository.saveAndFlush(colaborador);
+        Long vendasId = vendas.getId();
+
+        // Get all the colaboradorList where vendas equals to vendasId
+        defaultColaboradorShouldBeFound("vendasId.equals=" + vendasId);
+
+        // Get all the colaboradorList where vendas equals to (vendasId + 1)
+        defaultColaboradorShouldNotBeFound("vendasId.equals=" + (vendasId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultColaboradorShouldBeFound(String filter) throws Exception {
+        restColaboradorMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(colaborador.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nomeColaborador").value(hasItem(DEFAULT_NOME_COLABORADOR)))
+            .andExpect(jsonPath("$.[*].nomeApresentacao").value(hasItem(DEFAULT_NOME_APRESENTACAO)))
+            .andExpect(jsonPath("$.[*].indicadorAtivo").value(hasItem(DEFAULT_INDICADOR_ATIVO.booleanValue())));
+
+        // Check, that the count call also returns 1
+        restColaboradorMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultColaboradorShouldNotBeFound(String filter) throws Exception {
+        restColaboradorMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restColaboradorMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("0"));
     }
 
     @Test

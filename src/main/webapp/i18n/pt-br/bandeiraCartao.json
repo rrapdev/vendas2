@@ -2,10 +2,13 @@
   "vendas2App": {
     "BandeiraCartao": {
       "null": "",
-      "MASTER": "MASTER",
+      "MASTERCARD": "MASTERCARD",
       "VISA": "VISA",
-      "AMERICAN": "AMERICAN",
+      "AMERICAN_EXPRESS": "AMERICAN_EXPRESS",
       "ELO": "ELO",
+      "DISCOVER_NETWORK": "DISCOVER_NETWORK",
+      "HIPERCARD": "HIPERCARD",
+      "DINERS_CLUB": "DINERS_CLUB",
       "OUTRO": "OUTRO"
     }
   }

@@ -1,7 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.repository.CarteiraClienteRepository;
+import com.mycompany.myapp.service.CarteiraClienteQueryService;
 import com.mycompany.myapp.service.CarteiraClienteService;
+import com.mycompany.myapp.service.criteria.CarteiraClienteCriteria;
 import com.mycompany.myapp.service.dto.CarteiraClienteDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,9 +44,16 @@ public class CarteiraClienteResource {
 
     private final CarteiraClienteRepository carteiraClienteRepository;
 
-    public CarteiraClienteResource(CarteiraClienteService carteiraClienteService, CarteiraClienteRepository carteiraClienteRepository) {
+    private final CarteiraClienteQueryService carteiraClienteQueryService;
+
+    public CarteiraClienteResource(
+        CarteiraClienteService carteiraClienteService,
+        CarteiraClienteRepository carteiraClienteRepository,
+        CarteiraClienteQueryService carteiraClienteQueryService
+    ) {
         this.carteiraClienteService = carteiraClienteService;
         this.carteiraClienteRepository = carteiraClienteRepository;
+        this.carteiraClienteQueryService = carteiraClienteQueryService;
     }
 
     /**
@@ -143,23 +151,30 @@ public class CarteiraClienteResource {
      * {@code GET  /carteira-clientes} : get all the carteiraClientes.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of carteiraClientes in body.
      */
     @GetMapping("/carteira-clientes")
     public ResponseEntity<List<CarteiraClienteDTO>> getAllCarteiraClientes(
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        @RequestParam(required = false, defaultValue = "true") boolean eagerload
+        CarteiraClienteCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get a page of CarteiraClientes");
-        Page<CarteiraClienteDTO> page;
-        if (eagerload) {
-            page = carteiraClienteService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = carteiraClienteService.findAll(pageable);
-        }
+        log.debug("REST request to get CarteiraClientes by criteria: {}", criteria);
+        Page<CarteiraClienteDTO> page = carteiraClienteQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /carteira-clientes/count} : count all the carteiraClientes.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/carteira-clientes/count")
+    public ResponseEntity<Long> countCarteiraClientes(CarteiraClienteCriteria criteria) {
+        log.debug("REST request to count CarteiraClientes by criteria: {}", criteria);
+        return ResponseEntity.ok().body(carteiraClienteQueryService.countByCriteria(criteria));
     }
 
     /**

@@ -59,9 +59,6 @@
             <column name="cliente_que_vai_realizar_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="venda_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="item_venda" columnName="data_hora" columnDataType="${datetimeType}"/>
