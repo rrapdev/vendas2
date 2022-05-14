@@ -45,7 +45,7 @@ entity ItemVenda {
 
 entity Cliente {
 	nomeCompleto String required,
-    telefone String required,
+    telefone String,
     nomeApresentacao String,
     indicadorAtivo Boolean
 }
@@ -74,11 +74,12 @@ entity Pagamento {
 
 enum FormaPagamento {
 	DINHEIRO, PIX, TRANSFERENCIA, CREDITO, DEBITO, 
-    BOLETO, DEPOSITO, CHEQUE, PERMUTA, CARTEIRA_EVA, OUTRO
+    BOLETO, DEPOSITO, CHEQUE, PERMUTA, CARTEIRA_EMPRESA, OUTRO
 }
 
 enum BandeiraCartao {
-	MASTER, VISA, AMERICAN, ELO, OUTRO
+	MASTERCARD, VISA, AMERICAN_EXPRESS, ELO,
+    DISCOVER_NETWORK, HIPERCARD, DINERS_CLUB, OUTRO
 }
 
 //MAQUINETA - STONE, MAQUINETA - BANCO DO NORDESTE, SITE - PAGSEGURO,
@@ -90,8 +91,9 @@ entity PlataformaPagamento {
 }
 
 entity CarteiraCliente {
-    saldoConsolidado BigDecimal required,
-    tipoIndicadorSaldo TipoIndicadorSaldo,
+	nomeCarteiraCliente String required,
+    saldoConsolidado BigDecimal,
+    tipoIndicadorSaldo TipoSaldo,
     indicadorBloqueio Boolean,
     dataHoraCadastro Instant,
     colaboradorCadastro String,
@@ -99,13 +101,13 @@ entity CarteiraCliente {
     colaboradorAtualizacao String
 }
 
-enum TipoIndicadorSaldo {
+enum TipoSaldo {
 	POSITIVO, NEGATIVO
 }
 
 entity LancamentoCarteiraCliente {
-	dataHora Instant required,
 	descricaoLancamento String required,
+	dataHora Instant,
 	valorCredito BigDecimal,
     valorDebito BigDecimal,
     observacoes String,
@@ -117,23 +119,19 @@ entity LancamentoCarteiraCliente {
 }
 
 relationship OneToOne {
-	Cliente{carteiraCliente(saldoConsolidado)} to CarteiraCliente
-}
-
-relationship OneToMany {
-	Venda{itenssVendass(quantidade)} to ItemVenda
+	Cliente{carteiraCliente(nomeCarteiraCliente)} to CarteiraCliente,
+    LancamentoCarteiraCliente{venda} to Venda,
+    LancamentoCarteiraCliente{pagamento} to Pagamento
 }
 
 relationship ManyToOne {
     Venda{clienteQueComprou(nomeCompleto)} to Cliente,
-    Venda{lancamentoCarteiraCliente(descricaoLancamento)} to LancamentoCarteiraCliente
     
     ItemVenda{servico(nomeServico)} to Servico,
     ItemVenda{colaboradorQueIndicou(nomeApresentacao)} to Colaborador,
     ItemVenda{clienteQueVaiRealizar(nomeCompleto)} to Cliente,
     
-    Pagamento{plataformaPagamento(nomePlataformaPagamento)} to PlataformaPagamento,
-    Pagamento{lancamentoCarteiraCliente(descricaoLancamento)} to LancamentoCarteiraCliente
+    Pagamento{adquirentePagamento(nomePlataformaPagamento)} to PlataformaPagamento
 }
 
 relationship ManyToMany {
@@ -147,4 +145,4 @@ relationship ManyToMany {
 paginate * with pagination
 dto * with mapstruct
 service all with serviceImpl
-
+filter *
