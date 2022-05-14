@@ -74,22 +74,8 @@ public class ItemVenda implements Serializable {
     @JsonIgnoreProperties(value = { "carteiraCliente" }, allowSetters = true)
     private Cliente clienteQueVaiRealizar;
 
-    @ManyToOne
-    @JsonIgnoreProperties(
-        value = {
-            "itenssVendasses", "clienteQueComprou", "lancamentoCarteiraCliente", "colaboradoresQueIndicarams", "itensVendas", "pagamentos",
-        },
-        allowSetters = true
-    )
-    private Venda venda;
-
     @ManyToMany(mappedBy = "itensVendas")
-    @JsonIgnoreProperties(
-        value = {
-            "itenssVendasses", "clienteQueComprou", "lancamentoCarteiraCliente", "colaboradoresQueIndicarams", "itensVendas", "pagamentos",
-        },
-        allowSetters = true
-    )
+    @JsonIgnoreProperties(value = { "clienteQueComprou", "colaboradoresQueIndicarams", "itensVendas", "pagamentos" }, allowSetters = true)
     private Set<Venda> vendas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -299,19 +285,6 @@ public class ItemVenda implements Serializable {
 
     public ItemVenda clienteQueVaiRealizar(Cliente cliente) {
         this.setClienteQueVaiRealizar(cliente);
-        return this;
-    }
-
-    public Venda getVenda() {
-        return this.venda;
-    }
-
-    public void setVenda(Venda venda) {
-        this.venda = venda;
-    }
-
-    public ItemVenda venda(Venda venda) {
-        this.setVenda(venda);
         return this;
     }
 

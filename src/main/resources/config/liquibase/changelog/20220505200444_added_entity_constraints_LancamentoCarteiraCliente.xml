@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity LancamentoCarteiraCliente.
+    -->
+    <changeSet id="20220505200444-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="venda_id"
+                                 baseTableName="lancamento_carteira_cliente"
+                                 constraintName="fk_lancamento_carteira_cliente__venda_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="venda"/>
+
+        <addForeignKeyConstraint baseColumnNames="pagamento_id"
+                                 baseTableName="lancamento_carteira_cliente"
+                                 constraintName="fk_lancamento_carteira_cliente__pagamento_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pagamento"/>
+    </changeSet>
+</databaseChangeLog>

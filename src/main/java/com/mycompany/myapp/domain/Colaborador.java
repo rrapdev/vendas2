@@ -33,12 +33,7 @@ public class Colaborador implements Serializable {
     private Boolean indicadorAtivo;
 
     @ManyToMany(mappedBy = "colaboradoresQueIndicarams")
-    @JsonIgnoreProperties(
-        value = {
-            "itenssVendasses", "clienteQueComprou", "lancamentoCarteiraCliente", "colaboradoresQueIndicarams", "itensVendas", "pagamentos",
-        },
-        allowSetters = true
-    )
+    @JsonIgnoreProperties(value = { "clienteQueComprou", "colaboradoresQueIndicarams", "itensVendas", "pagamentos" }, allowSetters = true)
     private Set<Venda> vendas = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the ItemVenda entity.
  */
 @Repository
-public interface ItemVendaRepository extends JpaRepository<ItemVenda, Long> {
+public interface ItemVendaRepository extends JpaRepository<ItemVenda, Long>, JpaSpecificationExecutor<ItemVenda> {
     default Optional<ItemVenda> findOneWithEagerRelationships(Long id) {
         return this.findOneWithToOneRelationships(id);
     }

@@ -122,10 +122,6 @@ export const ItemVendaDetail = (props: RouteComponentProps<{ id: string }>) => {
             <Translate contentKey="vendas2App.itemVenda.clienteQueVaiRealizar">Cliente Que Vai Realizar</Translate>
           </dt>
           <dd>{itemVendaEntity.clienteQueVaiRealizar ? itemVendaEntity.clienteQueVaiRealizar.nomeCompleto : ''}</dd>
-          <dt>
-            <Translate contentKey="vendas2App.itemVenda.venda">Venda</Translate>
-          </dt>
-          <dd>{itemVendaEntity.venda ? itemVendaEntity.venda.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/item-venda" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

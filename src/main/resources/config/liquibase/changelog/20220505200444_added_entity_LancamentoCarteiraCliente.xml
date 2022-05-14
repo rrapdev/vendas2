@@ -14,11 +14,11 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="data_hora" type="${datetimeType}">
-                <constraints nullable="false" />
-            </column>
             <column name="descricao_lancamento" type="varchar(255)">
                 <constraints nullable="false" />
+            </column>
+            <column name="data_hora" type="${datetimeType}">
+                <constraints nullable="true" />
             </column>
             <column name="valor_credito" type="decimal(21,2)">
                 <constraints nullable="true" />
@@ -44,6 +44,12 @@
             <column name="colaborador_atualizacao" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="venda_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_lancamento_carteira_cliente__venda_id" />
+            </column>
+            <column name="pagamento_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_lancamento_carteira_cliente__pagamento_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="lancamento_carteira_cliente" columnName="data_hora" columnDataType="${datetimeType}"/>
@@ -68,8 +74,8 @@
                   tableName="lancamento_carteira_cliente"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="data_hora" type="date"/>
             <column name="descricao_lancamento" type="string"/>
+            <column name="data_hora" type="date"/>
             <column name="valor_credito" type="numeric"/>
             <column name="valor_debito" type="numeric"/>
             <column name="observacoes" type="string"/>

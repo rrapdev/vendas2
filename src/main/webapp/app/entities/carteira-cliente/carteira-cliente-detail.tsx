@@ -31,6 +31,12 @@ export const CarteiraClienteDetail = (props: RouteComponentProps<{ id: string }>
           </dt>
           <dd>{carteiraClienteEntity.id}</dd>
           <dt>
+            <span id="nomeCarteiraCliente">
+              <Translate contentKey="vendas2App.carteiraCliente.nomeCarteiraCliente">Nome Carteira Cliente</Translate>
+            </span>
+          </dt>
+          <dd>{carteiraClienteEntity.nomeCarteiraCliente}</dd>
+          <dt>
             <span id="saldoConsolidado">
               <Translate contentKey="vendas2App.carteiraCliente.saldoConsolidado">Saldo Consolidado</Translate>
             </span>

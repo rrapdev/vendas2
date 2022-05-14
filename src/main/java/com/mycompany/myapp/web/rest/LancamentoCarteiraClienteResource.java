@@ -1,7 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.repository.LancamentoCarteiraClienteRepository;
+import com.mycompany.myapp.service.LancamentoCarteiraClienteQueryService;
 import com.mycompany.myapp.service.LancamentoCarteiraClienteService;
+import com.mycompany.myapp.service.criteria.LancamentoCarteiraClienteCriteria;
 import com.mycompany.myapp.service.dto.LancamentoCarteiraClienteDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,12 +44,16 @@ public class LancamentoCarteiraClienteResource {
 
     private final LancamentoCarteiraClienteRepository lancamentoCarteiraClienteRepository;
 
+    private final LancamentoCarteiraClienteQueryService lancamentoCarteiraClienteQueryService;
+
     public LancamentoCarteiraClienteResource(
         LancamentoCarteiraClienteService lancamentoCarteiraClienteService,
-        LancamentoCarteiraClienteRepository lancamentoCarteiraClienteRepository
+        LancamentoCarteiraClienteRepository lancamentoCarteiraClienteRepository,
+        LancamentoCarteiraClienteQueryService lancamentoCarteiraClienteQueryService
     ) {
         this.lancamentoCarteiraClienteService = lancamentoCarteiraClienteService;
         this.lancamentoCarteiraClienteRepository = lancamentoCarteiraClienteRepository;
+        this.lancamentoCarteiraClienteQueryService = lancamentoCarteiraClienteQueryService;
     }
 
     /**
@@ -149,16 +154,30 @@ public class LancamentoCarteiraClienteResource {
      * {@code GET  /lancamento-carteira-clientes} : get all the lancamentoCarteiraClientes.
      *
      * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of lancamentoCarteiraClientes in body.
      */
     @GetMapping("/lancamento-carteira-clientes")
     public ResponseEntity<List<LancamentoCarteiraClienteDTO>> getAllLancamentoCarteiraClientes(
+        LancamentoCarteiraClienteCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get a page of LancamentoCarteiraClientes");
-        Page<LancamentoCarteiraClienteDTO> page = lancamentoCarteiraClienteService.findAll(pageable);
+        log.debug("REST request to get LancamentoCarteiraClientes by criteria: {}", criteria);
+        Page<LancamentoCarteiraClienteDTO> page = lancamentoCarteiraClienteQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /lancamento-carteira-clientes/count} : count all the lancamentoCarteiraClientes.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/lancamento-carteira-clientes/count")
+    public ResponseEntity<Long> countLancamentoCarteiraClientes(LancamentoCarteiraClienteCriteria criteria) {
+        log.debug("REST request to count LancamentoCarteiraClientes by criteria: {}", criteria);
+        return ResponseEntity.ok().body(lancamentoCarteiraClienteQueryService.countByCriteria(criteria));
     }
 
     /**

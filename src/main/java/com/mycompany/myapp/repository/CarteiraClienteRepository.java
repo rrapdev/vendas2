@@ -13,7 +13,8 @@ import org.springframework.stereotype.Repository;
  * Spring Data SQL repository for the CarteiraCliente entity.
  */
 @Repository
-public interface CarteiraClienteRepository extends CarteiraClienteRepositoryWithBagRelationships, JpaRepository<CarteiraCliente, Long> {
+public interface CarteiraClienteRepository
+    extends CarteiraClienteRepositoryWithBagRelationships, JpaRepository<CarteiraCliente, Long>, JpaSpecificationExecutor<CarteiraCliente> {
     default Optional<CarteiraCliente> findOneWithEagerRelationships(Long id) {
         return this.fetchBagRelationships(this.findById(id));
     }

@@ -57,7 +57,7 @@ export const ClienteDetail = (props: RouteComponentProps<{ id: string }>) => {
           <dt>
             <Translate contentKey="vendas2App.cliente.carteiraCliente">Carteira Cliente</Translate>
           </dt>
-          <dd>{clienteEntity.carteiraCliente ? clienteEntity.carteiraCliente.saldoConsolidado : ''}</dd>
+          <dd>{clienteEntity.carteiraCliente ? clienteEntity.carteiraCliente.nomeCarteiraCliente : ''}</dd>
         </dl>
         <Button tag={Link} to="/cliente" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

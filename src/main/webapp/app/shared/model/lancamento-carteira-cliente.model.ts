@@ -1,10 +1,12 @@
 import dayjs from 'dayjs';
+import { IVenda } from 'app/shared/model/venda.model';
+import { IPagamento } from 'app/shared/model/pagamento.model';
 import { ICarteiraCliente } from 'app/shared/model/carteira-cliente.model';
 
 export interface ILancamentoCarteiraCliente {
   id?: number;
-  dataHora?: string;
   descricaoLancamento?: string;
+  dataHora?: string | null;
   valorCredito?: number | null;
   valorDebito?: number | null;
   observacoes?: string | null;
@@ -13,6 +15,8 @@ export interface ILancamentoCarteiraCliente {
   colaboradorCadastro?: string | null;
   dataHoraAtualizacao?: string | null;
   colaboradorAtualizacao?: string | null;
+  venda?: IVenda | null;
+  pagamento?: IPagamento | null;
   carteirasClientes?: ICarteiraCliente[] | null;
 }
 

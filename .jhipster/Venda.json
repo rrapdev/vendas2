@@ -65,30 +65,16 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "Venda",
   "pagination": "pagination",
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "quantidade",
-      "otherEntityName": "itemVenda",
-      "otherEntityRelationshipName": "venda",
-      "relationshipName": "itenssVendass",
-      "relationshipType": "one-to-many"
-    },
-    {
       "otherEntityField": "nomeCompleto",
       "otherEntityName": "cliente",
       "otherEntityRelationshipName": "venda",
       "relationshipName": "clienteQueComprou",
-      "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityField": "descricaoLancamento",
-      "otherEntityName": "lancamentoCarteiraCliente",
-      "otherEntityRelationshipName": "venda",
-      "relationshipName": "lancamentoCarteiraCliente",
       "relationshipType": "many-to-one"
     },
     {

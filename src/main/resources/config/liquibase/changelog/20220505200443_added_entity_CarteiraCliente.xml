@@ -14,8 +14,11 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="saldo_consolidado" type="decimal(21,2)">
+            <column name="nome_carteira_cliente" type="varchar(255)">
                 <constraints nullable="false" />
+            </column>
+            <column name="saldo_consolidado" type="decimal(21,2)">
+                <constraints nullable="true" />
             </column>
             <column name="tipo_indicador_saldo" type="varchar(255)">
                 <constraints nullable="true" />
@@ -72,6 +75,7 @@
                   tableName="carteira_cliente"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
+            <column name="nome_carteira_cliente" type="string"/>
             <column name="saldo_consolidado" type="numeric"/>
             <column name="tipo_indicador_saldo" type="string"/>
             <column name="indicador_bloqueio" type="boolean"/>

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PlataformaPagamentoRepository extends JpaRepository<PlataformaPagamento, Long> {}
+public interface PlataformaPagamentoRepository
+    extends JpaRepository<PlataformaPagamento, Long>, JpaSpecificationExecutor<PlataformaPagamento> {}

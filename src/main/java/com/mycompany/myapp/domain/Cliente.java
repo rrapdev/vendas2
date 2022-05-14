@@ -24,8 +24,7 @@ public class Cliente implements Serializable {
     @Column(name = "nome_completo", nullable = false)
     private String nomeCompleto;
 
-    @NotNull
-    @Column(name = "telefone", nullable = false)
+    @Column(name = "telefone")
     private String telefone;
 
     @Column(name = "nome_apresentacao")

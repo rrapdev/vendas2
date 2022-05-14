@@ -20,7 +20,7 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "Colaborador",
   "pagination": "pagination",
   "readOnly": false,

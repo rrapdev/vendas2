@@ -21,7 +21,6 @@ export interface IItemVenda {
   servico?: IServico | null;
   colaboradorQueIndicou?: IColaborador | null;
   clienteQueVaiRealizar?: ICliente | null;
-  venda?: IVenda | null;
   vendas?: IVenda[] | null;
 }
 

@@ -70,17 +70,9 @@ public class Venda implements Serializable {
     @Column(name = "colaborador_atualizacao")
     private String colaboradorAtualizacao;
 
-    @OneToMany(mappedBy = "venda")
-    @JsonIgnoreProperties(value = { "servico", "colaboradorQueIndicou", "clienteQueVaiRealizar", "venda", "vendas" }, allowSetters = true)
-    private Set<ItemVenda> itenssVendasses = new HashSet<>();
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "carteiraCliente" }, allowSetters = true)
     private Cliente clienteQueComprou;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "carteirasClientes" }, allowSetters = true)
-    private LancamentoCarteiraCliente lancamentoCarteiraCliente;
 
     @ManyToMany
     @JoinTable(
@@ -97,7 +89,7 @@ public class Venda implements Serializable {
         joinColumns = @JoinColumn(name = "venda_id"),
         inverseJoinColumns = @JoinColumn(name = "itens_venda_id")
     )
-    @JsonIgnoreProperties(value = { "servico", "colaboradorQueIndicou", "clienteQueVaiRealizar", "venda", "vendas" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "servico", "colaboradorQueIndicou", "clienteQueVaiRealizar", "vendas" }, allowSetters = true)
     private Set<ItemVenda> itensVendas = new HashSet<>();
 
     @ManyToMany
@@ -106,7 +98,7 @@ public class Venda implements Serializable {
         joinColumns = @JoinColumn(name = "venda_id"),
         inverseJoinColumns = @JoinColumn(name = "pagamentos_id")
     )
-    @JsonIgnoreProperties(value = { "plataformaPagamento", "lancamentoCarteiraCliente", "vendas" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "adquirentePagamento", "vendas" }, allowSetters = true)
     private Set<Pagamento> pagamentos = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -306,37 +298,6 @@ public class Venda implements Serializable {
         this.colaboradorAtualizacao = colaboradorAtualizacao;
     }
 
-    public Set<ItemVenda> getItenssVendasses() {
-        return this.itenssVendasses;
-    }
-
-    public void setItenssVendasses(Set<ItemVenda> itemVendas) {
-        if (this.itenssVendasses != null) {
-            this.itenssVendasses.forEach(i -> i.setVenda(null));
-        }
-        if (itemVendas != null) {
-            itemVendas.forEach(i -> i.setVenda(this));
-        }
-        this.itenssVendasses = itemVendas;
-    }
-
-    public Venda itenssVendasses(Set<ItemVenda> itemVendas) {
-        this.setItenssVendasses(itemVendas);
-        return this;
-    }
-
-    public Venda addItenssVendass(ItemVenda itemVenda) {
-        this.itenssVendasses.add(itemVenda);
-        itemVenda.setVenda(this);
-        return this;
-    }
-
-    public Venda removeItenssVendass(ItemVenda itemVenda) {
-        this.itenssVendasses.remove(itemVenda);
-        itemVenda.setVenda(null);
-        return this;
-    }
-
     public Cliente getClienteQueComprou() {
         return this.clienteQueComprou;
     }
@@ -347,19 +308,6 @@ public class Venda implements Serializable {
 
     public Venda clienteQueComprou(Cliente cliente) {
         this.setClienteQueComprou(cliente);
-        return this;
-    }
-
-    public LancamentoCarteiraCliente getLancamentoCarteiraCliente() {
-        return this.lancamentoCarteiraCliente;
-    }
-
-    public void setLancamentoCarteiraCliente(LancamentoCarteiraCliente lancamentoCarteiraCliente) {
-        this.lancamentoCarteiraCliente = lancamentoCarteiraCliente;
-    }
-
-    public Venda lancamentoCarteiraCliente(LancamentoCarteiraCliente lancamentoCarteiraCliente) {
-        this.setLancamentoCarteiraCliente(lancamentoCarteiraCliente);
         return this;
     }
 

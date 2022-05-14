@@ -18,6 +18,7 @@
         "title": "Carteira Cliente"
       },
       "id": "ID",
+      "nomeCarteiraCliente": "Nome Carteira Cliente",
       "saldoConsolidado": "Saldo Consolidado",
       "tipoIndicadorSaldo": "Tipo Indicador Saldo",
       "indicadorBloqueio": "Indicador Bloqueio",

@@ -159,9 +159,6 @@ export const ItemVenda = (props: RouteComponentProps<{ url: string }>) => {
                   <Translate contentKey="vendas2App.itemVenda.clienteQueVaiRealizar">Cliente Que Vai Realizar</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="vendas2App.itemVenda.venda">Venda</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -210,7 +207,6 @@ export const ItemVenda = (props: RouteComponentProps<{ url: string }>) => {
                       ''
                     )}
                   </td>
-                  <td>{itemVenda.venda ? <Link to={`/venda/${itemVenda.venda.id}`}>{itemVenda.venda.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/item-venda/${itemVenda.id}`} color="info" size="sm" data-cy="entityDetailsButton">

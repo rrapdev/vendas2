@@ -8,6 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IVenda } from 'app/shared/model/venda.model';
+import { getEntities as getVendas } from 'app/entities/venda/venda.reducer';
+import { IPagamento } from 'app/shared/model/pagamento.model';
+import { getEntities as getPagamentos } from 'app/entities/pagamento/pagamento.reducer';
 import { ICarteiraCliente } from 'app/shared/model/carteira-cliente.model';
 import { getEntities as getCarteiraClientes } from 'app/entities/carteira-cliente/carteira-cliente.reducer';
 import { ILancamentoCarteiraCliente } from 'app/shared/model/lancamento-carteira-cliente.model';
@@ -18,6 +22,8 @@ export const LancamentoCarteiraClienteUpdate = (props: RouteComponentProps<{ id:
 
   const [isNew] = useState(!props.match.params || !props.match.params.id);
 
+  const vendas = useAppSelector(state => state.venda.entities);
+  const pagamentos = useAppSelector(state => state.pagamento.entities);
   const carteiraClientes = useAppSelector(state => state.carteiraCliente.entities);
   const lancamentoCarteiraClienteEntity = useAppSelector(state => state.lancamentoCarteiraCliente.entity);
   const loading = useAppSelector(state => state.lancamentoCarteiraCliente.loading);
@@ -34,6 +40,8 @@ export const LancamentoCarteiraClienteUpdate = (props: RouteComponentProps<{ id:
       dispatch(getEntity(props.match.params.id));
     }
 
+    dispatch(getVendas({}));
+    dispatch(getPagamentos({}));
     dispatch(getCarteiraClientes({}));
   }, []);
 
@@ -51,6 +59,8 @@ export const LancamentoCarteiraClienteUpdate = (props: RouteComponentProps<{ id:
     const entity = {
       ...lancamentoCarteiraClienteEntity,
       ...values,
+      venda: vendas.find(it => it.id.toString() === values.venda.toString()),
+      pagamento: pagamentos.find(it => it.id.toString() === values.pagamento.toString()),
     };
 
     if (isNew) {
@@ -72,6 +82,8 @@ export const LancamentoCarteiraClienteUpdate = (props: RouteComponentProps<{ id:
           dataHora: convertDateTimeFromServer(lancamentoCarteiraClienteEntity.dataHora),
           dataHoraCadastro: convertDateTimeFromServer(lancamentoCarteiraClienteEntity.dataHoraCadastro),
           dataHoraAtualizacao: convertDateTimeFromServer(lancamentoCarteiraClienteEntity.dataHoraAtualizacao),
+          venda: lancamentoCarteiraClienteEntity?.venda?.id,
+          pagamento: lancamentoCarteiraClienteEntity?.pagamento?.id,
         };
 
   return (
@@ -102,17 +114,6 @@ export const LancamentoCarteiraClienteUpdate = (props: RouteComponentProps<{ id:
                 />
               ) : null}
               <ValidatedField
-                label={translate('vendas2App.lancamentoCarteiraCliente.dataHora')}
-                id="lancamento-carteira-cliente-dataHora"
-                name="dataHora"
-                data-cy="dataHora"
-                type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
-                validate={{
-                  required: { value: true, message: translate('entity.validation.required') },
-                }}
-              />
-              <ValidatedField
                 label={translate('vendas2App.lancamentoCarteiraCliente.descricaoLancamento')}
                 id="lancamento-carteira-cliente-descricaoLancamento"
                 name="descricaoLancamento"
@@ -121,6 +122,14 @@ export const LancamentoCarteiraClienteUpdate = (props: RouteComponentProps<{ id:
                 validate={{
                   required: { value: true, message: translate('entity.validation.required') },
                 }}
+              />
+              <ValidatedField
+                label={translate('vendas2App.lancamentoCarteiraCliente.dataHora')}
+                id="lancamento-carteira-cliente-dataHora"
+                name="dataHora"
+                data-cy="dataHora"
+                type="datetime-local"
+                placeholder="YYYY-MM-DD HH:mm"
               />
               <ValidatedField
                 label={translate('vendas2App.lancamentoCarteiraCliente.valorCredito')}
@@ -181,6 +190,38 @@ export const LancamentoCarteiraClienteUpdate = (props: RouteComponentProps<{ id:
                 data-cy="colaboradorAtualizacao"
                 type="text"
               />
+              <ValidatedField
+                id="lancamento-carteira-cliente-venda"
+                name="venda"
+                data-cy="venda"
+                label={translate('vendas2App.lancamentoCarteiraCliente.venda')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {vendas
+                  ? vendas.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="lancamento-carteira-cliente-pagamento"
+                name="pagamento"
+                data-cy="pagamento"
+                label={translate('vendas2App.lancamentoCarteiraCliente.pagamento')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {pagamentos
+                  ? pagamentos.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/lancamento-carteira-cliente" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

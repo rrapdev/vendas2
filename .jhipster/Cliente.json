@@ -12,8 +12,7 @@
     },
     {
       "fieldName": "telefone",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
+      "fieldType": "String"
     },
     {
       "fieldName": "nomeApresentacao",
@@ -25,13 +24,13 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "Cliente",
   "pagination": "pagination",
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityField": "saldoConsolidado",
+      "otherEntityField": "nomeCarteiraCliente",
       "otherEntityName": "carteiraCliente",
       "otherEntityRelationshipName": "cliente",
       "ownerSide": true,

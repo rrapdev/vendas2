@@ -1,6 +1,6 @@
 package com.mycompany.myapp.service.dto;
 
-import com.mycompany.myapp.domain.enumeration.TipoIndicadorSaldo;
+import com.mycompany.myapp.domain.enumeration.TipoSaldo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -17,9 +17,11 @@ public class CarteiraClienteDTO implements Serializable {
     private Long id;
 
     @NotNull
+    private String nomeCarteiraCliente;
+
     private BigDecimal saldoConsolidado;
 
-    private TipoIndicadorSaldo tipoIndicadorSaldo;
+    private TipoSaldo tipoIndicadorSaldo;
 
     private Boolean indicadorBloqueio;
 
@@ -41,6 +43,14 @@ public class CarteiraClienteDTO implements Serializable {
         this.id = id;
     }
 
+    public String getNomeCarteiraCliente() {
+        return nomeCarteiraCliente;
+    }
+
+    public void setNomeCarteiraCliente(String nomeCarteiraCliente) {
+        this.nomeCarteiraCliente = nomeCarteiraCliente;
+    }
+
     public BigDecimal getSaldoConsolidado() {
         return saldoConsolidado;
     }
@@ -49,11 +59,11 @@ public class CarteiraClienteDTO implements Serializable {
         this.saldoConsolidado = saldoConsolidado;
     }
 
-    public TipoIndicadorSaldo getTipoIndicadorSaldo() {
+    public TipoSaldo getTipoIndicadorSaldo() {
         return tipoIndicadorSaldo;
     }
 
-    public void setTipoIndicadorSaldo(TipoIndicadorSaldo tipoIndicadorSaldo) {
+    public void setTipoIndicadorSaldo(TipoSaldo tipoIndicadorSaldo) {
         this.tipoIndicadorSaldo = tipoIndicadorSaldo;
     }
 
@@ -131,6 +141,7 @@ public class CarteiraClienteDTO implements Serializable {
     public String toString() {
         return "CarteiraClienteDTO{" +
             "id=" + getId() +
+            ", nomeCarteiraCliente='" + getNomeCarteiraCliente() + "'" +
             ", saldoConsolidado=" + getSaldoConsolidado() +
             ", tipoIndicadorSaldo='" + getTipoIndicadorSaldo() + "'" +
             ", indicadorBloqueio='" + getIndicadorBloqueio() + "'" +

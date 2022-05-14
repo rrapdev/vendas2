@@ -18,8 +18,8 @@
         "title": "Lancamento Carteira Cliente"
       },
       "id": "ID",
-      "dataHora": "Data Hora",
       "descricaoLancamento": "Descricao Lancamento",
+      "dataHora": "Data Hora",
       "valorCredito": "Valor Credito",
       "valorDebito": "Valor Debito",
       "observacoes": "Observacoes",
@@ -28,6 +28,8 @@
       "colaboradorCadastro": "Colaborador Cadastro",
       "dataHoraAtualizacao": "Data Hora Atualizacao",
       "colaboradorAtualizacao": "Colaborador Atualizacao",
+      "venda": "Venda",
+      "pagamento": "Pagamento",
       "carteirasCliente": "Carteiras Cliente"
     }
   }

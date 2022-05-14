@@ -1,7 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.repository.PlataformaPagamentoRepository;
+import com.mycompany.myapp.service.PlataformaPagamentoQueryService;
 import com.mycompany.myapp.service.PlataformaPagamentoService;
+import com.mycompany.myapp.service.criteria.PlataformaPagamentoCriteria;
 import com.mycompany.myapp.service.dto.PlataformaPagamentoDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,12 +44,16 @@ public class PlataformaPagamentoResource {
 
     private final PlataformaPagamentoRepository plataformaPagamentoRepository;
 
+    private final PlataformaPagamentoQueryService plataformaPagamentoQueryService;
+
     public PlataformaPagamentoResource(
         PlataformaPagamentoService plataformaPagamentoService,
-        PlataformaPagamentoRepository plataformaPagamentoRepository
+        PlataformaPagamentoRepository plataformaPagamentoRepository,
+        PlataformaPagamentoQueryService plataformaPagamentoQueryService
     ) {
         this.plataformaPagamentoService = plataformaPagamentoService;
         this.plataformaPagamentoRepository = plataformaPagamentoRepository;
+        this.plataformaPagamentoQueryService = plataformaPagamentoQueryService;
     }
 
     /**
@@ -147,16 +152,30 @@ public class PlataformaPagamentoResource {
      * {@code GET  /plataforma-pagamentos} : get all the plataformaPagamentos.
      *
      * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of plataformaPagamentos in body.
      */
     @GetMapping("/plataforma-pagamentos")
     public ResponseEntity<List<PlataformaPagamentoDTO>> getAllPlataformaPagamentos(
+        PlataformaPagamentoCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get a page of PlataformaPagamentos");
-        Page<PlataformaPagamentoDTO> page = plataformaPagamentoService.findAll(pageable);
+        log.debug("REST request to get PlataformaPagamentos by criteria: {}", criteria);
+        Page<PlataformaPagamentoDTO> page = plataformaPagamentoQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /plataforma-pagamentos/count} : count all the plataformaPagamentos.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/plataforma-pagamentos/count")
+    public ResponseEntity<Long> countPlataformaPagamentos(PlataformaPagamentoCriteria criteria) {
+        log.debug("REST request to count PlataformaPagamentos by criteria: {}", criteria);
+        return ResponseEntity.ok().body(plataformaPagamentoQueryService.countByCriteria(criteria));
     }
 
     /**

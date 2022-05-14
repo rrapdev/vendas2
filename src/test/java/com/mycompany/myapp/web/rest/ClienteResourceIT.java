@@ -7,9 +7,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.mycompany.myapp.IntegrationTest;
+import com.mycompany.myapp.domain.CarteiraCliente;
 import com.mycompany.myapp.domain.Cliente;
 import com.mycompany.myapp.repository.ClienteRepository;
 import com.mycompany.myapp.service.ClienteService;
+import com.mycompany.myapp.service.criteria.ClienteCriteria;
 import com.mycompany.myapp.service.dto.ClienteDTO;
 import com.mycompany.myapp.service.mapper.ClienteMapper;
 import java.util.ArrayList;
@@ -172,24 +174,6 @@ class ClienteResourceIT {
 
     @Test
     @Transactional
-    void checkTelefoneIsRequired() throws Exception {
-        int databaseSizeBeforeTest = clienteRepository.findAll().size();
-        // set the field null
-        cliente.setTelefone(null);
-
-        // Create the Cliente, which fails.
-        ClienteDTO clienteDTO = clienteMapper.toDto(cliente);
-
-        restClienteMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(clienteDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Cliente> clienteList = clienteRepository.findAll();
-        assertThat(clienteList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllClientes() throws Exception {
         // Initialize the database
         clienteRepository.saveAndFlush(cliente);
@@ -240,6 +224,377 @@ class ClienteResourceIT {
             .andExpect(jsonPath("$.telefone").value(DEFAULT_TELEFONE))
             .andExpect(jsonPath("$.nomeApresentacao").value(DEFAULT_NOME_APRESENTACAO))
             .andExpect(jsonPath("$.indicadorAtivo").value(DEFAULT_INDICADOR_ATIVO.booleanValue()));
+    }
+
+    @Test
+    @Transactional
+    void getClientesByIdFiltering() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        Long id = cliente.getId();
+
+        defaultClienteShouldBeFound("id.equals=" + id);
+        defaultClienteShouldNotBeFound("id.notEquals=" + id);
+
+        defaultClienteShouldBeFound("id.greaterThanOrEqual=" + id);
+        defaultClienteShouldNotBeFound("id.greaterThan=" + id);
+
+        defaultClienteShouldBeFound("id.lessThanOrEqual=" + id);
+        defaultClienteShouldNotBeFound("id.lessThan=" + id);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeCompletoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeCompleto equals to DEFAULT_NOME_COMPLETO
+        defaultClienteShouldBeFound("nomeCompleto.equals=" + DEFAULT_NOME_COMPLETO);
+
+        // Get all the clienteList where nomeCompleto equals to UPDATED_NOME_COMPLETO
+        defaultClienteShouldNotBeFound("nomeCompleto.equals=" + UPDATED_NOME_COMPLETO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeCompletoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeCompleto not equals to DEFAULT_NOME_COMPLETO
+        defaultClienteShouldNotBeFound("nomeCompleto.notEquals=" + DEFAULT_NOME_COMPLETO);
+
+        // Get all the clienteList where nomeCompleto not equals to UPDATED_NOME_COMPLETO
+        defaultClienteShouldBeFound("nomeCompleto.notEquals=" + UPDATED_NOME_COMPLETO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeCompletoIsInShouldWork() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeCompleto in DEFAULT_NOME_COMPLETO or UPDATED_NOME_COMPLETO
+        defaultClienteShouldBeFound("nomeCompleto.in=" + DEFAULT_NOME_COMPLETO + "," + UPDATED_NOME_COMPLETO);
+
+        // Get all the clienteList where nomeCompleto equals to UPDATED_NOME_COMPLETO
+        defaultClienteShouldNotBeFound("nomeCompleto.in=" + UPDATED_NOME_COMPLETO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeCompletoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeCompleto is not null
+        defaultClienteShouldBeFound("nomeCompleto.specified=true");
+
+        // Get all the clienteList where nomeCompleto is null
+        defaultClienteShouldNotBeFound("nomeCompleto.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeCompletoContainsSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeCompleto contains DEFAULT_NOME_COMPLETO
+        defaultClienteShouldBeFound("nomeCompleto.contains=" + DEFAULT_NOME_COMPLETO);
+
+        // Get all the clienteList where nomeCompleto contains UPDATED_NOME_COMPLETO
+        defaultClienteShouldNotBeFound("nomeCompleto.contains=" + UPDATED_NOME_COMPLETO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeCompletoNotContainsSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeCompleto does not contain DEFAULT_NOME_COMPLETO
+        defaultClienteShouldNotBeFound("nomeCompleto.doesNotContain=" + DEFAULT_NOME_COMPLETO);
+
+        // Get all the clienteList where nomeCompleto does not contain UPDATED_NOME_COMPLETO
+        defaultClienteShouldBeFound("nomeCompleto.doesNotContain=" + UPDATED_NOME_COMPLETO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByTelefoneIsEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where telefone equals to DEFAULT_TELEFONE
+        defaultClienteShouldBeFound("telefone.equals=" + DEFAULT_TELEFONE);
+
+        // Get all the clienteList where telefone equals to UPDATED_TELEFONE
+        defaultClienteShouldNotBeFound("telefone.equals=" + UPDATED_TELEFONE);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByTelefoneIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where telefone not equals to DEFAULT_TELEFONE
+        defaultClienteShouldNotBeFound("telefone.notEquals=" + DEFAULT_TELEFONE);
+
+        // Get all the clienteList where telefone not equals to UPDATED_TELEFONE
+        defaultClienteShouldBeFound("telefone.notEquals=" + UPDATED_TELEFONE);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByTelefoneIsInShouldWork() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where telefone in DEFAULT_TELEFONE or UPDATED_TELEFONE
+        defaultClienteShouldBeFound("telefone.in=" + DEFAULT_TELEFONE + "," + UPDATED_TELEFONE);
+
+        // Get all the clienteList where telefone equals to UPDATED_TELEFONE
+        defaultClienteShouldNotBeFound("telefone.in=" + UPDATED_TELEFONE);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByTelefoneIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where telefone is not null
+        defaultClienteShouldBeFound("telefone.specified=true");
+
+        // Get all the clienteList where telefone is null
+        defaultClienteShouldNotBeFound("telefone.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByTelefoneContainsSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where telefone contains DEFAULT_TELEFONE
+        defaultClienteShouldBeFound("telefone.contains=" + DEFAULT_TELEFONE);
+
+        // Get all the clienteList where telefone contains UPDATED_TELEFONE
+        defaultClienteShouldNotBeFound("telefone.contains=" + UPDATED_TELEFONE);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByTelefoneNotContainsSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where telefone does not contain DEFAULT_TELEFONE
+        defaultClienteShouldNotBeFound("telefone.doesNotContain=" + DEFAULT_TELEFONE);
+
+        // Get all the clienteList where telefone does not contain UPDATED_TELEFONE
+        defaultClienteShouldBeFound("telefone.doesNotContain=" + UPDATED_TELEFONE);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeApresentacaoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeApresentacao equals to DEFAULT_NOME_APRESENTACAO
+        defaultClienteShouldBeFound("nomeApresentacao.equals=" + DEFAULT_NOME_APRESENTACAO);
+
+        // Get all the clienteList where nomeApresentacao equals to UPDATED_NOME_APRESENTACAO
+        defaultClienteShouldNotBeFound("nomeApresentacao.equals=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeApresentacaoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeApresentacao not equals to DEFAULT_NOME_APRESENTACAO
+        defaultClienteShouldNotBeFound("nomeApresentacao.notEquals=" + DEFAULT_NOME_APRESENTACAO);
+
+        // Get all the clienteList where nomeApresentacao not equals to UPDATED_NOME_APRESENTACAO
+        defaultClienteShouldBeFound("nomeApresentacao.notEquals=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeApresentacaoIsInShouldWork() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeApresentacao in DEFAULT_NOME_APRESENTACAO or UPDATED_NOME_APRESENTACAO
+        defaultClienteShouldBeFound("nomeApresentacao.in=" + DEFAULT_NOME_APRESENTACAO + "," + UPDATED_NOME_APRESENTACAO);
+
+        // Get all the clienteList where nomeApresentacao equals to UPDATED_NOME_APRESENTACAO
+        defaultClienteShouldNotBeFound("nomeApresentacao.in=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeApresentacaoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeApresentacao is not null
+        defaultClienteShouldBeFound("nomeApresentacao.specified=true");
+
+        // Get all the clienteList where nomeApresentacao is null
+        defaultClienteShouldNotBeFound("nomeApresentacao.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeApresentacaoContainsSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeApresentacao contains DEFAULT_NOME_APRESENTACAO
+        defaultClienteShouldBeFound("nomeApresentacao.contains=" + DEFAULT_NOME_APRESENTACAO);
+
+        // Get all the clienteList where nomeApresentacao contains UPDATED_NOME_APRESENTACAO
+        defaultClienteShouldNotBeFound("nomeApresentacao.contains=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByNomeApresentacaoNotContainsSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where nomeApresentacao does not contain DEFAULT_NOME_APRESENTACAO
+        defaultClienteShouldNotBeFound("nomeApresentacao.doesNotContain=" + DEFAULT_NOME_APRESENTACAO);
+
+        // Get all the clienteList where nomeApresentacao does not contain UPDATED_NOME_APRESENTACAO
+        defaultClienteShouldBeFound("nomeApresentacao.doesNotContain=" + UPDATED_NOME_APRESENTACAO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByIndicadorAtivoIsEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where indicadorAtivo equals to DEFAULT_INDICADOR_ATIVO
+        defaultClienteShouldBeFound("indicadorAtivo.equals=" + DEFAULT_INDICADOR_ATIVO);
+
+        // Get all the clienteList where indicadorAtivo equals to UPDATED_INDICADOR_ATIVO
+        defaultClienteShouldNotBeFound("indicadorAtivo.equals=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByIndicadorAtivoIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where indicadorAtivo not equals to DEFAULT_INDICADOR_ATIVO
+        defaultClienteShouldNotBeFound("indicadorAtivo.notEquals=" + DEFAULT_INDICADOR_ATIVO);
+
+        // Get all the clienteList where indicadorAtivo not equals to UPDATED_INDICADOR_ATIVO
+        defaultClienteShouldBeFound("indicadorAtivo.notEquals=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByIndicadorAtivoIsInShouldWork() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where indicadorAtivo in DEFAULT_INDICADOR_ATIVO or UPDATED_INDICADOR_ATIVO
+        defaultClienteShouldBeFound("indicadorAtivo.in=" + DEFAULT_INDICADOR_ATIVO + "," + UPDATED_INDICADOR_ATIVO);
+
+        // Get all the clienteList where indicadorAtivo equals to UPDATED_INDICADOR_ATIVO
+        defaultClienteShouldNotBeFound("indicadorAtivo.in=" + UPDATED_INDICADOR_ATIVO);
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByIndicadorAtivoIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+
+        // Get all the clienteList where indicadorAtivo is not null
+        defaultClienteShouldBeFound("indicadorAtivo.specified=true");
+
+        // Get all the clienteList where indicadorAtivo is null
+        defaultClienteShouldNotBeFound("indicadorAtivo.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllClientesByCarteiraClienteIsEqualToSomething() throws Exception {
+        // Initialize the database
+        clienteRepository.saveAndFlush(cliente);
+        CarteiraCliente carteiraCliente;
+        if (TestUtil.findAll(em, CarteiraCliente.class).isEmpty()) {
+            carteiraCliente = CarteiraClienteResourceIT.createEntity(em);
+            em.persist(carteiraCliente);
+            em.flush();
+        } else {
+            carteiraCliente = TestUtil.findAll(em, CarteiraCliente.class).get(0);
+        }
+        em.persist(carteiraCliente);
+        em.flush();
+        cliente.setCarteiraCliente(carteiraCliente);
+        clienteRepository.saveAndFlush(cliente);
+        Long carteiraClienteId = carteiraCliente.getId();
+
+        // Get all the clienteList where carteiraCliente equals to carteiraClienteId
+        defaultClienteShouldBeFound("carteiraClienteId.equals=" + carteiraClienteId);
+
+        // Get all the clienteList where carteiraCliente equals to (carteiraClienteId + 1)
+        defaultClienteShouldNotBeFound("carteiraClienteId.equals=" + (carteiraClienteId + 1));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is returned.
+     */
+    private void defaultClienteShouldBeFound(String filter) throws Exception {
+        restClienteMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(cliente.getId().intValue())))
+            .andExpect(jsonPath("$.[*].nomeCompleto").value(hasItem(DEFAULT_NOME_COMPLETO)))
+            .andExpect(jsonPath("$.[*].telefone").value(hasItem(DEFAULT_TELEFONE)))
+            .andExpect(jsonPath("$.[*].nomeApresentacao").value(hasItem(DEFAULT_NOME_APRESENTACAO)))
+            .andExpect(jsonPath("$.[*].indicadorAtivo").value(hasItem(DEFAULT_INDICADOR_ATIVO.booleanValue())));
+
+        // Check, that the count call also returns 1
+        restClienteMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("1"));
+    }
+
+    /**
+     * Executes the search, and checks that the default entity is not returned.
+     */
+    private void defaultClienteShouldNotBeFound(String filter) throws Exception {
+        restClienteMockMvc
+            .perform(get(ENTITY_API_URL + "?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$").isArray())
+            .andExpect(jsonPath("$").isEmpty());
+
+        // Check, that the count call also returns 0
+        restClienteMockMvc
+            .perform(get(ENTITY_API_URL + "/count?sort=id,desc&" + filter))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(content().string("0"));
     }
 
     @Test

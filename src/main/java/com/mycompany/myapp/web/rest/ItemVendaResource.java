@@ -1,7 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.repository.ItemVendaRepository;
+import com.mycompany.myapp.service.ItemVendaQueryService;
 import com.mycompany.myapp.service.ItemVendaService;
+import com.mycompany.myapp.service.criteria.ItemVendaCriteria;
 import com.mycompany.myapp.service.dto.ItemVendaDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,9 +44,16 @@ public class ItemVendaResource {
 
     private final ItemVendaRepository itemVendaRepository;
 
-    public ItemVendaResource(ItemVendaService itemVendaService, ItemVendaRepository itemVendaRepository) {
+    private final ItemVendaQueryService itemVendaQueryService;
+
+    public ItemVendaResource(
+        ItemVendaService itemVendaService,
+        ItemVendaRepository itemVendaRepository,
+        ItemVendaQueryService itemVendaQueryService
+    ) {
         this.itemVendaService = itemVendaService;
         this.itemVendaRepository = itemVendaRepository;
+        this.itemVendaQueryService = itemVendaQueryService;
     }
 
     /**
@@ -142,23 +150,30 @@ public class ItemVendaResource {
      * {@code GET  /item-vendas} : get all the itemVendas.
      *
      * @param pageable the pagination information.
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of itemVendas in body.
      */
     @GetMapping("/item-vendas")
     public ResponseEntity<List<ItemVendaDTO>> getAllItemVendas(
-        @org.springdoc.api.annotations.ParameterObject Pageable pageable,
-        @RequestParam(required = false, defaultValue = "true") boolean eagerload
+        ItemVendaCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {
-        log.debug("REST request to get a page of ItemVendas");
-        Page<ItemVendaDTO> page;
-        if (eagerload) {
-            page = itemVendaService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = itemVendaService.findAll(pageable);
-        }
+        log.debug("REST request to get ItemVendas by criteria: {}", criteria);
+        Page<ItemVendaDTO> page = itemVendaQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /item-vendas/count} : count all the itemVendas.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/item-vendas/count")
+    public ResponseEntity<Long> countItemVendas(ItemVendaCriteria criteria) {
+        log.debug("REST request to count ItemVendas by criteria: {}", criteria);
+        return ResponseEntity.ok().body(itemVendaQueryService.countByCriteria(criteria));
     }
 
     /**

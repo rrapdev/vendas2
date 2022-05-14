@@ -6,13 +6,17 @@
   "entityTableName": "carteira_cliente",
   "fields": [
     {
-      "fieldName": "saldoConsolidado",
-      "fieldType": "BigDecimal",
+      "fieldName": "nomeCarteiraCliente",
+      "fieldType": "String",
       "fieldValidateRules": ["required"]
     },
     {
+      "fieldName": "saldoConsolidado",
+      "fieldType": "BigDecimal"
+    },
+    {
       "fieldName": "tipoIndicadorSaldo",
-      "fieldType": "TipoIndicadorSaldo",
+      "fieldType": "TipoSaldo",
       "fieldValues": "POSITIVO,NEGATIVO"
     },
     {
@@ -37,7 +41,7 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "CarteiraCliente",
   "pagination": "pagination",
   "readOnly": false,

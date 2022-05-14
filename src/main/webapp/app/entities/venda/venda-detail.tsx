@@ -125,10 +125,6 @@ export const VendaDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{vendaEntity.clienteQueComprou ? vendaEntity.clienteQueComprou.nomeCompleto : ''}</dd>
           <dt>
-            <Translate contentKey="vendas2App.venda.lancamentoCarteiraCliente">Lancamento Carteira Cliente</Translate>
-          </dt>
-          <dd>{vendaEntity.lancamentoCarteiraCliente ? vendaEntity.lancamentoCarteiraCliente.descricaoLancamento : ''}</dd>
-          <dt>
             <Translate contentKey="vendas2App.venda.colaboradoresQueIndicaram">Colaboradores Que Indicaram</Translate>
           </dt>
           <dd>

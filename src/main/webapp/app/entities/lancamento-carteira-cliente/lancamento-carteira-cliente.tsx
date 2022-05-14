@@ -109,12 +109,12 @@ export const LancamentoCarteiraCliente = (props: RouteComponentProps<{ url: stri
                 <th className="hand" onClick={sort('id')}>
                   <Translate contentKey="vendas2App.lancamentoCarteiraCliente.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('dataHora')}>
-                  <Translate contentKey="vendas2App.lancamentoCarteiraCliente.dataHora">Data Hora</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
                 <th className="hand" onClick={sort('descricaoLancamento')}>
                   <Translate contentKey="vendas2App.lancamentoCarteiraCliente.descricaoLancamento">Descricao Lancamento</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('dataHora')}>
+                  <Translate contentKey="vendas2App.lancamentoCarteiraCliente.dataHora">Data Hora</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={sort('valorCredito')}>
@@ -149,6 +149,13 @@ export const LancamentoCarteiraCliente = (props: RouteComponentProps<{ url: stri
                   <Translate contentKey="vendas2App.lancamentoCarteiraCliente.colaboradorAtualizacao">Colaborador Atualizacao</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  <Translate contentKey="vendas2App.lancamentoCarteiraCliente.venda">Venda</Translate> <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  <Translate contentKey="vendas2App.lancamentoCarteiraCliente.pagamento">Pagamento</Translate>{' '}
+                  <FontAwesomeIcon icon="sort" />
+                </th>
                 <th />
               </tr>
             </thead>
@@ -160,12 +167,12 @@ export const LancamentoCarteiraCliente = (props: RouteComponentProps<{ url: stri
                       {lancamentoCarteiraCliente.id}
                     </Button>
                   </td>
+                  <td>{lancamentoCarteiraCliente.descricaoLancamento}</td>
                   <td>
                     {lancamentoCarteiraCliente.dataHora ? (
                       <TextFormat type="date" value={lancamentoCarteiraCliente.dataHora} format={APP_DATE_FORMAT} />
                     ) : null}
                   </td>
-                  <td>{lancamentoCarteiraCliente.descricaoLancamento}</td>
                   <td>{lancamentoCarteiraCliente.valorCredito}</td>
                   <td>{lancamentoCarteiraCliente.valorDebito}</td>
                   <td>{lancamentoCarteiraCliente.observacoes}</td>
@@ -182,6 +189,20 @@ export const LancamentoCarteiraCliente = (props: RouteComponentProps<{ url: stri
                     ) : null}
                   </td>
                   <td>{lancamentoCarteiraCliente.colaboradorAtualizacao}</td>
+                  <td>
+                    {lancamentoCarteiraCliente.venda ? (
+                      <Link to={`/venda/${lancamentoCarteiraCliente.venda.id}`}>{lancamentoCarteiraCliente.venda.id}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
+                  <td>
+                    {lancamentoCarteiraCliente.pagamento ? (
+                      <Link to={`/pagamento/${lancamentoCarteiraCliente.pagamento.id}`}>{lancamentoCarteiraCliente.pagamento.id}</Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button

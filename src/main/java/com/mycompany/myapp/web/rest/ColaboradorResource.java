@@ -1,7 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.repository.ColaboradorRepository;
+import com.mycompany.myapp.service.ColaboradorQueryService;
 import com.mycompany.myapp.service.ColaboradorService;
+import com.mycompany.myapp.service.criteria.ColaboradorCriteria;
 import com.mycompany.myapp.service.dto.ColaboradorDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,9 +44,16 @@ public class ColaboradorResource {
 
     private final ColaboradorRepository colaboradorRepository;
 
-    public ColaboradorResource(ColaboradorService colaboradorService, ColaboradorRepository colaboradorRepository) {
+    private final ColaboradorQueryService colaboradorQueryService;
+
+    public ColaboradorResource(
+        ColaboradorService colaboradorService,
+        ColaboradorRepository colaboradorRepository,
+        ColaboradorQueryService colaboradorQueryService
+    ) {
         this.colaboradorService = colaboradorService;
         this.colaboradorRepository = colaboradorRepository;
+        this.colaboradorQueryService = colaboradorQueryService;
     }
 
     /**
@@ -142,14 +150,30 @@ public class ColaboradorResource {
      * {@code GET  /colaboradors} : get all the colaboradors.
      *
      * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of colaboradors in body.
      */
     @GetMapping("/colaboradors")
-    public ResponseEntity<List<ColaboradorDTO>> getAllColaboradors(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
-        log.debug("REST request to get a page of Colaboradors");
-        Page<ColaboradorDTO> page = colaboradorService.findAll(pageable);
+    public ResponseEntity<List<ColaboradorDTO>> getAllColaboradors(
+        ColaboradorCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Colaboradors by criteria: {}", criteria);
+        Page<ColaboradorDTO> page = colaboradorQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /colaboradors/count} : count all the colaboradors.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/colaboradors/count")
+    public ResponseEntity<Long> countColaboradors(ColaboradorCriteria criteria) {
+        log.debug("REST request to count Colaboradors by criteria: {}", criteria);
+        return ResponseEntity.ok().body(colaboradorQueryService.countByCriteria(criteria));
     }
 
     /**

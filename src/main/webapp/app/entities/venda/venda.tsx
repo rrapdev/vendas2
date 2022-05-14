@@ -156,10 +156,6 @@ export const Venda = (props: RouteComponentProps<{ url: string }>) => {
                 <th>
                   <Translate contentKey="vendas2App.venda.clienteQueComprou">Cliente Que Comprou</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  <Translate contentKey="vendas2App.venda.lancamentoCarteiraCliente">Lancamento Carteira Cliente</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -194,15 +190,6 @@ export const Venda = (props: RouteComponentProps<{ url: string }>) => {
                   <td>
                     {venda.clienteQueComprou ? (
                       <Link to={`/cliente/${venda.clienteQueComprou.id}`}>{venda.clienteQueComprou.nomeCompleto}</Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {venda.lancamentoCarteiraCliente ? (
-                      <Link to={`/lancamento-carteira-cliente/${venda.lancamentoCarteiraCliente.id}`}>
-                        {venda.lancamentoCarteiraCliente.descricaoLancamento}
-                      </Link>
                     ) : (
                       ''
                     )}

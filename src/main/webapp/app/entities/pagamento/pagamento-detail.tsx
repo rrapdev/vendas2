@@ -111,13 +111,9 @@ export const PagamentoDetail = (props: RouteComponentProps<{ id: string }>) => {
           </dt>
           <dd>{pagamentoEntity.colaboradorAtualizacao}</dd>
           <dt>
-            <Translate contentKey="vendas2App.pagamento.plataformaPagamento">Plataforma Pagamento</Translate>
+            <Translate contentKey="vendas2App.pagamento.adquirentePagamento">Adquirente Pagamento</Translate>
           </dt>
-          <dd>{pagamentoEntity.plataformaPagamento ? pagamentoEntity.plataformaPagamento.nomePlataformaPagamento : ''}</dd>
-          <dt>
-            <Translate contentKey="vendas2App.pagamento.lancamentoCarteiraCliente">Lancamento Carteira Cliente</Translate>
-          </dt>
-          <dd>{pagamentoEntity.lancamentoCarteiraCliente ? pagamentoEntity.lancamentoCarteiraCliente.descricaoLancamento : ''}</dd>
+          <dd>{pagamentoEntity.adquirentePagamento ? pagamentoEntity.adquirentePagamento.nomePlataformaPagamento : ''}</dd>
         </dl>
         <Button tag={Link} to="/pagamento" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

@@ -16,7 +16,7 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "PlataformaPagamento",
   "pagination": "pagination",
   "readOnly": false,

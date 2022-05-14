@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface LancamentoCarteiraClienteRepository extends JpaRepository<LancamentoCarteiraCliente, Long> {}
+public interface LancamentoCarteiraClienteRepository
+    extends JpaRepository<LancamentoCarteiraCliente, Long>, JpaSpecificationExecutor<LancamentoCarteiraCliente> {}

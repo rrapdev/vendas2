@@ -48,8 +48,6 @@ public class VendaDTO implements Serializable {
 
     private ClienteDTO clienteQueComprou;
 
-    private LancamentoCarteiraClienteDTO lancamentoCarteiraCliente;
-
     private Set<ColaboradorDTO> colaboradoresQueIndicarams = new HashSet<>();
 
     private Set<ItemVendaDTO> itensVendas = new HashSet<>();
@@ -184,14 +182,6 @@ public class VendaDTO implements Serializable {
         this.clienteQueComprou = clienteQueComprou;
     }
 
-    public LancamentoCarteiraClienteDTO getLancamentoCarteiraCliente() {
-        return lancamentoCarteiraCliente;
-    }
-
-    public void setLancamentoCarteiraCliente(LancamentoCarteiraClienteDTO lancamentoCarteiraCliente) {
-        this.lancamentoCarteiraCliente = lancamentoCarteiraCliente;
-    }
-
     public Set<ColaboradorDTO> getColaboradoresQueIndicarams() {
         return colaboradoresQueIndicarams;
     }
@@ -257,7 +247,6 @@ public class VendaDTO implements Serializable {
             ", dataHoraAtualizacao='" + getDataHoraAtualizacao() + "'" +
             ", colaboradorAtualizacao='" + getColaboradorAtualizacao() + "'" +
             ", clienteQueComprou=" + getClienteQueComprou() +
-            ", lancamentoCarteiraCliente=" + getLancamentoCarteiraCliente() +
             ", colaboradoresQueIndicarams=" + getColaboradoresQueIndicarams() +
             ", itensVendas=" + getItensVendas() +
             ", pagamentos=" + getPagamentos() +

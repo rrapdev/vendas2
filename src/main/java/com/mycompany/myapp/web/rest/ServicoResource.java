@@ -1,7 +1,9 @@
 package com.mycompany.myapp.web.rest;
 
 import com.mycompany.myapp.repository.ServicoRepository;
+import com.mycompany.myapp.service.ServicoQueryService;
 import com.mycompany.myapp.service.ServicoService;
+import com.mycompany.myapp.service.criteria.ServicoCriteria;
 import com.mycompany.myapp.service.dto.ServicoDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -17,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,9 +44,12 @@ public class ServicoResource {
 
     private final ServicoRepository servicoRepository;
 
-    public ServicoResource(ServicoService servicoService, ServicoRepository servicoRepository) {
+    private final ServicoQueryService servicoQueryService;
+
+    public ServicoResource(ServicoService servicoService, ServicoRepository servicoRepository, ServicoQueryService servicoQueryService) {
         this.servicoService = servicoService;
         this.servicoRepository = servicoRepository;
+        this.servicoQueryService = servicoQueryService;
     }
 
     /**
@@ -142,14 +146,30 @@ public class ServicoResource {
      * {@code GET  /servicos} : get all the servicos.
      *
      * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of servicos in body.
      */
     @GetMapping("/servicos")
-    public ResponseEntity<List<ServicoDTO>> getAllServicos(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
-        log.debug("REST request to get a page of Servicos");
-        Page<ServicoDTO> page = servicoService.findAll(pageable);
+    public ResponseEntity<List<ServicoDTO>> getAllServicos(
+        ServicoCriteria criteria,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        log.debug("REST request to get Servicos by criteria: {}", criteria);
+        Page<ServicoDTO> page = servicoQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /servicos/count} : count all the servicos.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/servicos/count")
+    public ResponseEntity<Long> countServicos(ServicoCriteria criteria) {
+        log.debug("REST request to count Servicos by criteria: {}", criteria);
+        return ResponseEntity.ok().body(servicoQueryService.countByCriteria(criteria));
     }
 
     /**

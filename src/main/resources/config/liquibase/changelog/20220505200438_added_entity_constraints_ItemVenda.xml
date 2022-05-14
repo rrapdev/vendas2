@@ -25,11 +25,5 @@
                                  constraintName="fk_item_venda__cliente_que_vai_realizar_id"
                                  referencedColumnNames="id"
                                  referencedTableName="cliente"/>
-
-        <addForeignKeyConstraint baseColumnNames="venda_id"
-                                 baseTableName="item_venda"
-                                 constraintName="fk_item_venda__venda_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="venda"/>
     </changeSet>
 </databaseChangeLog>

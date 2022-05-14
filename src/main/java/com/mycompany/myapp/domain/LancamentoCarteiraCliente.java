@@ -25,12 +25,11 @@ public class LancamentoCarteiraCliente implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "data_hora", nullable = false)
-    private Instant dataHora;
-
-    @NotNull
     @Column(name = "descricao_lancamento", nullable = false)
     private String descricaoLancamento;
+
+    @Column(name = "data_hora")
+    private Instant dataHora;
 
     @Column(name = "valor_credito", precision = 21, scale = 2)
     private BigDecimal valorCredito;
@@ -56,6 +55,16 @@ public class LancamentoCarteiraCliente implements Serializable {
     @Column(name = "colaborador_atualizacao")
     private String colaboradorAtualizacao;
 
+    @JsonIgnoreProperties(value = { "clienteQueComprou", "colaboradoresQueIndicarams", "itensVendas", "pagamentos" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Venda venda;
+
+    @JsonIgnoreProperties(value = { "adquirentePagamento", "vendas" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Pagamento pagamento;
+
     @ManyToMany(mappedBy = "lancamentoCarteiraClientes")
     @JsonIgnoreProperties(value = { "lancamentoCarteiraClientes" }, allowSetters = true)
     private Set<CarteiraCliente> carteirasClientes = new HashSet<>();
@@ -75,19 +84,6 @@ public class LancamentoCarteiraCliente implements Serializable {
         this.id = id;
     }
 
-    public Instant getDataHora() {
-        return this.dataHora;
-    }
-
-    public LancamentoCarteiraCliente dataHora(Instant dataHora) {
-        this.setDataHora(dataHora);
-        return this;
-    }
-
-    public void setDataHora(Instant dataHora) {
-        this.dataHora = dataHora;
-    }
-
     public String getDescricaoLancamento() {
         return this.descricaoLancamento;
     }
@@ -99,6 +95,19 @@ public class LancamentoCarteiraCliente implements Serializable {
 
     public void setDescricaoLancamento(String descricaoLancamento) {
         this.descricaoLancamento = descricaoLancamento;
+    }
+
+    public Instant getDataHora() {
+        return this.dataHora;
+    }
+
+    public LancamentoCarteiraCliente dataHora(Instant dataHora) {
+        this.setDataHora(dataHora);
+        return this;
+    }
+
+    public void setDataHora(Instant dataHora) {
+        this.dataHora = dataHora;
     }
 
     public BigDecimal getValorCredito() {
@@ -205,6 +214,32 @@ public class LancamentoCarteiraCliente implements Serializable {
         this.colaboradorAtualizacao = colaboradorAtualizacao;
     }
 
+    public Venda getVenda() {
+        return this.venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
+
+    public LancamentoCarteiraCliente venda(Venda venda) {
+        this.setVenda(venda);
+        return this;
+    }
+
+    public Pagamento getPagamento() {
+        return this.pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    public LancamentoCarteiraCliente pagamento(Pagamento pagamento) {
+        this.setPagamento(pagamento);
+        return this;
+    }
+
     public Set<CarteiraCliente> getCarteirasClientes() {
         return this.carteirasClientes;
     }
@@ -260,8 +295,8 @@ public class LancamentoCarteiraCliente implements Serializable {
     public String toString() {
         return "LancamentoCarteiraCliente{" +
             "id=" + getId() +
-            ", dataHora='" + getDataHora() + "'" +
             ", descricaoLancamento='" + getDescricaoLancamento() + "'" +
+            ", dataHora='" + getDataHora() + "'" +
             ", valorCredito=" + getValorCredito() +
             ", valorDebito=" + getValorDebito() +
             ", observacoes='" + getObservacoes() + "'" +

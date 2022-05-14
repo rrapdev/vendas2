@@ -14,10 +14,9 @@ public class LancamentoCarteiraClienteDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private Instant dataHora;
-
-    @NotNull
     private String descricaoLancamento;
+
+    private Instant dataHora;
 
     private BigDecimal valorCredito;
 
@@ -35,6 +34,10 @@ public class LancamentoCarteiraClienteDTO implements Serializable {
 
     private String colaboradorAtualizacao;
 
+    private VendaDTO venda;
+
+    private PagamentoDTO pagamento;
+
     public Long getId() {
         return id;
     }
@@ -43,20 +46,20 @@ public class LancamentoCarteiraClienteDTO implements Serializable {
         this.id = id;
     }
 
-    public Instant getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(Instant dataHora) {
-        this.dataHora = dataHora;
-    }
-
     public String getDescricaoLancamento() {
         return descricaoLancamento;
     }
 
     public void setDescricaoLancamento(String descricaoLancamento) {
         this.descricaoLancamento = descricaoLancamento;
+    }
+
+    public Instant getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(Instant dataHora) {
+        this.dataHora = dataHora;
     }
 
     public BigDecimal getValorCredito() {
@@ -123,6 +126,22 @@ public class LancamentoCarteiraClienteDTO implements Serializable {
         this.colaboradorAtualizacao = colaboradorAtualizacao;
     }
 
+    public VendaDTO getVenda() {
+        return venda;
+    }
+
+    public void setVenda(VendaDTO venda) {
+        this.venda = venda;
+    }
+
+    public PagamentoDTO getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(PagamentoDTO pagamento) {
+        this.pagamento = pagamento;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -149,8 +168,8 @@ public class LancamentoCarteiraClienteDTO implements Serializable {
     public String toString() {
         return "LancamentoCarteiraClienteDTO{" +
             "id=" + getId() +
-            ", dataHora='" + getDataHora() + "'" +
             ", descricaoLancamento='" + getDescricaoLancamento() + "'" +
+            ", dataHora='" + getDataHora() + "'" +
             ", valorCredito=" + getValorCredito() +
             ", valorDebito=" + getValorDebito() +
             ", observacoes='" + getObservacoes() + "'" +
@@ -159,6 +178,8 @@ public class LancamentoCarteiraClienteDTO implements Serializable {
             ", colaboradorCadastro='" + getColaboradorCadastro() + "'" +
             ", dataHoraAtualizacao='" + getDataHoraAtualizacao() + "'" +
             ", colaboradorAtualizacao='" + getColaboradorAtualizacao() + "'" +
+            ", venda=" + getVenda() +
+            ", pagamento=" + getPagamento() +
             "}";
     }
 }

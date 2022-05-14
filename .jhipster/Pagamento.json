@@ -9,7 +9,7 @@
       "fieldName": "formaPagamento",
       "fieldType": "FormaPagamento",
       "fieldValidateRules": ["required"],
-      "fieldValues": "DINHEIRO,PIX,TRANSFERENCIA,CREDITO,DEBITO,BOLETO,DEPOSITO,CHEQUE,PERMUTA,CARTEIRA_EVA,OUTRO"
+      "fieldValues": "DINHEIRO,PIX,TRANSFERENCIA,CREDITO,DEBITO,BOLETO,DEPOSITO,CHEQUE,PERMUTA,CARTEIRA_EMPRESA,OUTRO"
     },
     {
       "fieldName": "dataHora",
@@ -34,7 +34,7 @@
     {
       "fieldName": "bandeiraCartao",
       "fieldType": "BandeiraCartao",
-      "fieldValues": "MASTER,VISA,AMERICAN,ELO,OUTRO"
+      "fieldValues": "MASTERCARD,VISA,AMERICAN_EXPRESS,ELO,DISCOVER_NETWORK,HIPERCARD,DINERS_CLUB,OUTRO"
     },
     {
       "fieldName": "clienteOrigemPagamento",
@@ -62,7 +62,7 @@
     }
   ],
   "fluentMethods": true,
-  "jpaMetamodelFiltering": false,
+  "jpaMetamodelFiltering": true,
   "name": "Pagamento",
   "pagination": "pagination",
   "readOnly": false,
@@ -71,14 +71,7 @@
       "otherEntityField": "nomePlataformaPagamento",
       "otherEntityName": "plataformaPagamento",
       "otherEntityRelationshipName": "pagamento",
-      "relationshipName": "plataformaPagamento",
-      "relationshipType": "many-to-one"
-    },
-    {
-      "otherEntityField": "descricaoLancamento",
-      "otherEntityName": "lancamentoCarteiraCliente",
-      "otherEntityRelationshipName": "pagamento",
-      "relationshipName": "lancamentoCarteiraCliente",
+      "relationshipName": "adquirentePagamento",
       "relationshipType": "many-to-one"
     },
     {

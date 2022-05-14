@@ -147,11 +147,7 @@ export const Pagamento = (props: RouteComponentProps<{ url: string }>) => {
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="vendas2App.pagamento.plataformaPagamento">Plataforma Pagamento</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  <Translate contentKey="vendas2App.pagamento.lancamentoCarteiraCliente">Lancamento Carteira Cliente</Translate>{' '}
+                  <Translate contentKey="vendas2App.pagamento.adquirentePagamento">Adquirente Pagamento</Translate>{' '}
                   <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
@@ -190,18 +186,9 @@ export const Pagamento = (props: RouteComponentProps<{ url: string }>) => {
                   </td>
                   <td>{pagamento.colaboradorAtualizacao}</td>
                   <td>
-                    {pagamento.plataformaPagamento ? (
-                      <Link to={`/plataforma-pagamento/${pagamento.plataformaPagamento.id}`}>
-                        {pagamento.plataformaPagamento.nomePlataformaPagamento}
-                      </Link>
-                    ) : (
-                      ''
-                    )}
-                  </td>
-                  <td>
-                    {pagamento.lancamentoCarteiraCliente ? (
-                      <Link to={`/lancamento-carteira-cliente/${pagamento.lancamentoCarteiraCliente.id}`}>
-                        {pagamento.lancamentoCarteiraCliente.descricaoLancamento}
+                    {pagamento.adquirentePagamento ? (
+                      <Link to={`/plataforma-pagamento/${pagamento.adquirentePagamento.id}`}>
+                        {pagamento.adquirentePagamento.nomePlataformaPagamento}
                       </Link>
                     ) : (
                       ''
